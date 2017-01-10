@@ -1,0 +1,26 @@
+
+
+MVP:
+	Gebruiker ziet op de homepagina een Start knop
+	Start -> 20 vragen (verschillende types)
+	Na de quiz wordt resulataat getoond: X goed, Y fout
+	
+Extra 1
+	Timer
+	Gebruikersprofielen
+		Aanmelden	
+	Gebruikers-performance bijhouden
+	
+Extra 2
+	Gebruikers
+	Inloggen met password
+	Gebruikers spelen tegelijkertijd tegen elkaar
+	
+	
+User stories (MVP -> sprint 1):
+
+1 As a user, I want to start the game to play.
+2 As a user, I want to be able to answer questions in order to play the game.
+3 As a user, I want to see the results of the game in order to see how I did.
+
+4 As a developer, I want to use a hardcoded set of movies for questions in order to provide content.
