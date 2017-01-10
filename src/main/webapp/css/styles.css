@@ -1,0 +1,12 @@
+#container{
+	margin:0 20%;
+	border: solid black 1px;
+}
+
+.centered{
+	text-align: center;
+}
+
+#startbutton{
+	float: right;
+}
