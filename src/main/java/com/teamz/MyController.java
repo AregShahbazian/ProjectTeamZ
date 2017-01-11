@@ -1,5 +1,6 @@
 package com.teamz;
 
+import org.json.JSONObject;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
@@ -12,11 +13,11 @@ public class MyController {
 	public String post(){
 		
 		RestTemplate restTemplate = new RestTemplate();
-		Movie movie = restTemplate.getForObject("http://www.omdbapi.com/?i=tt0120338&plot=short&r=json", Movie.class);
-		
+		String movie = restTemplate.getForObject("http://www.omdbapi.com/?i=tt0120338&plot=short&r=json", String.class);
+		JSONObject jsonObject= new JSONObject(movie);
 		System.out.println(movie.toString());
 		
-		return movie.toString();
+		return jsonObject.toString();
 	}
 
 }

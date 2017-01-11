@@ -6,192 +6,229 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Movie {
 	
-	private String title;
-	private int year;
-	private String rated;
-	private String released;
-	private String runtime;
-	private String genre;
-	private String director;
-	private String writer;
-	private String actors;
-	private String plot;
-	private String language;
-	private String country;
-	private String awards;
-	private String poster;
+	private String Title;
+	private int Year;
+	private String Rated;
+	private String Released;
+	private String Runtime;
+	private String Genre;
+	private String Director;
+	private String Writer;
+	private String Actors;
+	private String Plot;
+	private String Language;
+	private String Country;
+	private String Awards;
+	private String Poster;
 	private double imdbRating;
 	private String imdbVotes;
-	private String imdbId;
-	private String response;
+	private String imdbID;
+	private String Response;
+
+
+
+	
+    @Override
+    public String toString() {
+        return this.Title + ", " + this.Year + "\n" + Plot.substring(0, 50) + "...";
+    }
+
 
 
 
 	public String getTitle() {
-		return title;
+		return Title;
 	}
+
 
 
 
 	public void setTitle(String title) {
-		this.title = title;
+		Title = title;
 	}
+
 
 
 
 	public int getYear() {
-		return year;
+		return Year;
 	}
+
 
 
 
 	public void setYear(int year) {
-		this.year = year;
+		Year = year;
 	}
+
 
 
 
 	public String getRated() {
-		return rated;
+		return Rated;
 	}
+
 
 
 
 	public void setRated(String rated) {
-		this.rated = rated;
+		Rated = rated;
 	}
+
 
 
 
 	public String getReleased() {
-		return released;
+		return Released;
 	}
+
 
 
 
 	public void setReleased(String released) {
-		this.released = released;
+		Released = released;
 	}
+
 
 
 
 	public String getRuntime() {
-		return runtime;
+		return Runtime;
 	}
+
 
 
 
 	public void setRuntime(String runtime) {
-		this.runtime = runtime;
+		Runtime = runtime;
 	}
+
 
 
 
 	public String getGenre() {
-		return genre;
+		return Genre;
 	}
+
 
 
 
 	public void setGenre(String genre) {
-		this.genre = genre;
+		Genre = genre;
 	}
+
 
 
 
 	public String getDirector() {
-		return director;
+		return Director;
 	}
+
 
 
 
 	public void setDirector(String director) {
-		this.director = director;
+		Director = director;
 	}
+
 
 
 
 	public String getWriter() {
-		return writer;
+		return Writer;
 	}
+
 
 
 
 	public void setWriter(String writer) {
-		this.writer = writer;
+		Writer = writer;
 	}
+
 
 
 
 	public String getActors() {
-		return actors;
+		return Actors;
 	}
+
 
 
 
 	public void setActors(String actors) {
-		this.actors = actors;
+		Actors = actors;
 	}
+
 
 
 
 	public String getPlot() {
-		return plot;
+		return Plot;
 	}
+
 
 
 
 	public void setPlot(String plot) {
-		this.plot = plot;
+		Plot = plot;
 	}
+
 
 
 
 	public String getLanguage() {
-		return language;
+		return Language;
 	}
+
 
 
 
 	public void setLanguage(String language) {
-		this.language = language;
+		Language = language;
 	}
+
 
 
 
 	public String getCountry() {
-		return country;
+		return Country;
 	}
+
 
 
 
 	public void setCountry(String country) {
-		this.country = country;
+		Country = country;
 	}
+
 
 
 
 	public String getAwards() {
-		return awards;
+		return Awards;
 	}
+
 
 
 
 	public void setAwards(String awards) {
-		this.awards = awards;
+		Awards = awards;
 	}
+
 
 
 
 	public String getPoster() {
-		return poster;
+		return Poster;
 	}
+
 
 
 
 	public void setPoster(String poster) {
-		this.poster = poster;
+		Poster = poster;
 	}
+
 
 
 
@@ -201,9 +238,11 @@ public class Movie {
 
 
 
+
 	public void setImdbRating(double imdbRating) {
 		this.imdbRating = imdbRating;
 	}
+
 
 
 
@@ -213,39 +252,38 @@ public class Movie {
 
 
 
+
 	public void setImdbVotes(String imdbVotes) {
 		this.imdbVotes = imdbVotes;
 	}
 
 
 
+
 	public String getImdbId() {
-		return imdbId;
+		return imdbID;
 	}
 
 
 
-	public void setImdbId(String imdbId) {
-		this.imdbId = imdbId;
+
+	public void setImdbId(String imdbID) {
+		this.imdbID = imdbID;
 	}
+
 
 
 
 	public String getResponse() {
-		return response;
+		return Response;
 	}
+
 
 
 
 	public void setResponse(String response) {
-		this.response = response;
+		Response = response;
 	}
-	
-	
-    @Override
-    public String toString() {
-        return this.title + ", " + this.year + "\n" + plot.substring(0, 50) + "...";
-    }
 		
 	
 }
