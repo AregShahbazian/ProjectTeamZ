@@ -1,7 +1,7 @@
-package com.teamz.service.mapper;
+package com.backup.service.mapper;
 
-import com.teamz.domain.*;
-import com.teamz.service.dto.QuestionDTO;
+import com.backup.domain.*;
+import com.backup.service.dto.QuestionDTO;
 
 import org.mapstruct.*;
 import java.util.List;

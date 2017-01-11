@@ -1,9 +1,9 @@
-package com.teamz.service;
+package com.backup.service;
 
-import com.teamz.domain.QuestionType;
-import com.teamz.repository.QuestionTypeRepository;
-import com.teamz.service.dto.QuestionTypeDTO;
-import com.teamz.service.mapper.QuestionTypeMapper;
+import com.backup.domain.QuestionType;
+import com.backup.repository.QuestionTypeRepository;
+import com.backup.service.dto.QuestionTypeDTO;
+import com.backup.service.mapper.QuestionTypeMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;

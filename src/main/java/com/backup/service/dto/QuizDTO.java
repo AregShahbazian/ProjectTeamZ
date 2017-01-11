@@ -1,4 +1,4 @@
-package com.teamz.service.dto;
+package com.backup.service.dto;
 
 import java.time.ZonedDateTime;
 import javax.validation.constraints.*;

@@ -1,4 +1,4 @@
-package com.teamz.service.dto;
+package com.backup.service.dto;
 
 import javax.validation.constraints.*;
 import java.io.Serializable;

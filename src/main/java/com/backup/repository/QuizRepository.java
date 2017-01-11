@@ -1,9 +1,9 @@
-package com.teamz.repository;
+package com.backup.repository;
 
 
 import org.springframework.data.jpa.repository.*;
 
-import com.teamz.domain.Quiz;
+import com.backup.domain.Quiz;
 
 import java.util.List;
 

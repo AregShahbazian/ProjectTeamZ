@@ -1,9 +1,9 @@
-package com.teamz.service;
+package com.backup.service;
 
-import com.teamz.domain.Quiz;
-import com.teamz.repository.QuizRepository;
-import com.teamz.service.dto.QuizDTO;
-import com.teamz.service.mapper.QuizMapper;
+import com.backup.domain.Quiz;
+import com.backup.repository.QuizRepository;
+import com.backup.service.dto.QuizDTO;
+import com.backup.service.mapper.QuizMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;

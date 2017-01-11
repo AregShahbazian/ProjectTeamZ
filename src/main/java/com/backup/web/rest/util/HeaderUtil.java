@@ -1,4 +1,4 @@
-package com.teamz.web.rest.util;
+package com.backup.web.rest.util;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

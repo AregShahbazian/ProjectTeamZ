@@ -1,8 +1,8 @@
-package com.teamz.web.rest;
+package com.backup.web.rest;
 
-import com.teamz.service.QuestionService;
-import com.teamz.web.rest.util.HeaderUtil;
-import com.teamz.service.dto.QuestionDTO;
+import com.backup.service.QuestionService;
+import com.backup.web.rest.util.HeaderUtil;
+import com.backup.service.dto.QuestionDTO;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -89,6 +89,17 @@ public class QuestionResource {
     public ResponseEntity<QuestionDTO> getQuestion(@PathVariable Long id) {
         log.debug("REST request to get Question : {}", id);
         QuestionDTO questionDTO = questionService.findOne(id);
+        return Optional.ofNullable(questionDTO)
+            .map(result -> new ResponseEntity<>(
+                result,
+                HttpStatus.OK))
+            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping("/question/{quizId}")
+    public ResponseEntity<QuestionDTO> getNewQuestion(@PathVariable Long quizId) {
+        log.debug("REST request to get a new Question for Quiz : {}", quizId);
+        QuestionDTO questionDTO = questionService.generateNew(quizId);
         return Optional.ofNullable(questionDTO)
             .map(result -> new ResponseEntity<>(
                 result,

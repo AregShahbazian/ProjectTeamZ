@@ -1,9 +1,9 @@
-package com.teamz.service;
+package com.backup.service;
 
-import com.teamz.domain.Question;
-import com.teamz.repository.QuestionRepository;
-import com.teamz.service.dto.QuestionDTO;
-import com.teamz.service.mapper.QuestionMapper;
+import com.backup.domain.Question;
+import com.backup.repository.QuestionRepository;
+import com.backup.service.dto.QuestionDTO;
+import com.backup.service.mapper.QuestionMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
@@ -70,6 +70,26 @@ public class QuestionService {
         Question question = questionRepository.findOne(id);
         QuestionDTO questionDTO = questionMapper.questionToQuestionDTO(question);
         return questionDTO;
+    }
+    
+    @Transactional(readOnly = true) 
+    public QuestionDTO generateNew(Long quizId) {
+        log.debug("Request to get a new Question for Quiz : {}", quizId);
+        
+        // TODO: Use MovieService to get a random movie
+        
+        // TODO: Use QuestionTypeService to get a random question-type
+        
+        // TODO: Generate QuestionDTO using the movie-data and type
+        
+        QuestionDTO questionDTO = generateQuestion();
+        Question question = questionMapper.questionDTOToQuestion(questionDTO);
+        return questionDTO;
+    }
+    
+    public QuestionDTO generateQuestion(/* Movie, Type */){
+    	return new QuestionDTO();
+    	
     }
 
     /**

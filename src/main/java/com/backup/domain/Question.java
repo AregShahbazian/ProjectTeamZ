@@ -1,4 +1,4 @@
-package com.teamz.domain;
+package com.backup.domain;
 
 
 import javax.persistence.*;

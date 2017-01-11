@@ -1,8 +1,8 @@
-package com.teamz.web.rest;
+package com.backup.web.rest;
 
-import com.teamz.service.QuestionTypeService;
-import com.teamz.web.rest.util.HeaderUtil;
-import com.teamz.service.dto.QuestionTypeDTO;
+import com.backup.service.QuestionTypeService;
+import com.backup.web.rest.util.HeaderUtil;
+import com.backup.service.dto.QuestionTypeDTO;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
