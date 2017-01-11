@@ -11,19 +11,14 @@ public class MyController {
 
 	@RequestMapping("quiz")
 	public String post() {
-
-		RestTemplate restTemplate = new RestTemplate();
-		String movie = restTemplate.getForObject("http://www.omdbapi.com/?i=tt0120338&plot=short&r=json", String.class);
-		JSONObject jsonObject;
-		try {
-			jsonObject = new JSONObject(movie);
-			return jsonObject.toString();
-
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return "";
+		
+		String display;
+		
+		Question q1 = new Question();
+		
+		display = q1.generate();
+		
+		return display;
 	}
 
 }
