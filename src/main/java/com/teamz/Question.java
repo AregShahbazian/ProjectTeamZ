@@ -16,8 +16,8 @@ public class Question {
 
 	public String generate() {
 		
-		String movieID = "tt0120338";
-		JSONObject movieJSON = getQuestionJson(movieID);
+		String apiId = "tt0138";
+		JSONObject movieJSON = getQuestionJson(apiId);
 		
 		String display = "";
 		
@@ -41,10 +41,10 @@ public class Question {
 
 	}
 	
-	private JSONObject getQuestionJson(String movieID){
+	private JSONObject getQuestionJson(String apiId){
 		
 		RestTemplate restTemplate = new RestTemplate();
-		String movie = restTemplate.getForObject("http://www.omdbapi.com/?i=" + movieID + "&plot=short&r=json", String.class);
+		String movie = restTemplate.getForObject("http://www.omdbapi.com/?i=" + apiId + "&plot=short&r=json", String.class);
 		
 		JSONObject jsonObject;
 		
