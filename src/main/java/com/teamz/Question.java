@@ -14,12 +14,12 @@ public class Question {
 	
 
 
-	public String generate(String apiId) {
+	public JSONObject generate(String apiId) {
 		
 		JSONObject movieJSON = getQuestionJson(apiId);
 	
 		
-		
+		/*
 		String display = "";
 		
 		if (movieJSON != null) {
@@ -37,8 +37,9 @@ public class Question {
 				
 			}
 		}
+		*/
 		
-		return display;
+		return movieJSON;
 
 	}
 	
