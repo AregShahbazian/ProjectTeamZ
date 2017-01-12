@@ -8,6 +8,6 @@ import com.teamz.domain.Movie;
 public interface MovieRepository extends CrudRepository<Movie, Long>{
 	
 	//need perfect camel case, parameter must exactly match attribute in Movie
-	List<Movie> findByApiId(String apiId);
+	List<Movie> findOneByApiId(String apiId);
 	
 }

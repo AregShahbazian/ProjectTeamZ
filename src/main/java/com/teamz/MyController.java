@@ -16,7 +16,7 @@ public class MyController {
 		
 		Question q1 = new Question();
 		
-		display = q1.generate();
+		display = q1.generate("tt0468569");
 		
 		return display;
 	}

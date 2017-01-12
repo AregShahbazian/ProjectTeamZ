@@ -14,9 +14,8 @@ public class Question {
 	
 
 
-	public String generate() {
+	public String generate(String apiId) {
 		
-		String apiId = "tt0138";
 		JSONObject movieJSON = getQuestionJson(apiId);
 		
 		String display = "";
