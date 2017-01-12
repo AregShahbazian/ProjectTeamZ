@@ -1,7 +1,10 @@
 package com.teamz.config;
 
+import com.teamz.domain.User;
 import com.teamz.security.*;
 import com.teamz.security.jwt.*;
+import com.teamz.service.UserService;
+import com.teamz.web.rest.vm.ManagedUserVM;
 
 import org.springframework.beans.factory.BeanInitializationException;
 import org.springframework.context.annotation.Bean;
@@ -20,6 +23,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.data.repository.query.SecurityEvaluationContextExtension;
 
+import java.util.HashSet;
+
 import javax.inject.Inject;
 
 @Configuration
@@ -27,82 +32,82 @@ import javax.inject.Inject;
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    @Inject
-    private Http401UnauthorizedEntryPoint authenticationEntryPoint;
+	@Inject
+	private Http401UnauthorizedEntryPoint authenticationEntryPoint;
 
-    @Inject
-    private UserDetailsService userDetailsService;
+	@Inject
+	private UserDetailsService userDetailsService;
 
-    @Inject
-    private TokenProvider tokenProvider;
+	@Inject
+	private TokenProvider tokenProvider;
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+	@Inject
+	private UserService userService;
 
-    @Inject
-    public void configureGlobal(AuthenticationManagerBuilder auth) {
-        try {
-            auth
-                .userDetailsService(userDetailsService)
-                    .passwordEncoder(passwordEncoder());
-        } catch (Exception e) {
-            throw new BeanInitializationException("Security configuration failed", e);
-        }
-    }
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring()
-            .antMatchers(HttpMethod.OPTIONS, "/**")
-            .antMatchers("/app/**/*.{js,html}")
-            .antMatchers("/bower_components/**")
-            .antMatchers("/i18n/**")
-            .antMatchers("/content/**")
-            .antMatchers("/swagger-ui/index.html")
-            .antMatchers("/test/**")
-            .antMatchers("/h2-console/**");
-    }
+	@Inject
+	public void configureGlobal(AuthenticationManagerBuilder auth) {
+		try {
+			auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+		} catch (Exception e) {
+			throw new BeanInitializationException("Security configuration failed", e);
+		}
+	}
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http
-            .exceptionHandling()
-            .authenticationEntryPoint(authenticationEntryPoint)
-        .and()
-            .csrf()
-            .disable()
-            .headers()
-            .frameOptions()
-            .disable()
-        .and()
-            .sessionManagement()
-            .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-        .and()
-            .authorizeRequests()
-            .antMatchers("/api/register").permitAll()
-            .antMatchers("/api/activate").permitAll()
-            .antMatchers("/api/authenticate").permitAll()
-            .antMatchers("/api/account/reset_password/init").permitAll()
-            .antMatchers("/api/account/reset_password/finish").permitAll()
-            .antMatchers("/api/profile-info").permitAll()
-            .antMatchers("/api/**").authenticated()
-            .antMatchers("/management/**").hasAuthority(AuthoritiesConstants.ADMIN)
-            .antMatchers("/v2/api-docs/**").permitAll()
-            .antMatchers("/swagger-resources/configuration/ui").permitAll()
-            .antMatchers("/swagger-ui/index.html").hasAuthority(AuthoritiesConstants.ADMIN)
-        .and()
-            .apply(securityConfigurerAdapter());
+	@Override
+	public void configure(WebSecurity web) throws Exception {
+		web.ignoring().antMatchers(HttpMethod.OPTIONS, "/**").antMatchers("/app/**/*.{js,html}")
+				.antMatchers("/bower_components/**").antMatchers("/i18n/**").antMatchers("/content/**")
+				.antMatchers("/swagger-ui/index.html").antMatchers("/test/**").antMatchers("/h2-console/**");
+	}
 
-    }
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http.exceptionHandling().authenticationEntryPoint(authenticationEntryPoint).and().csrf().disable().headers()
+				.frameOptions().disable().and().sessionManagement()
+				.sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
+				.antMatchers("/api/register").permitAll().antMatchers("/api/activate").permitAll()
+				.antMatchers("/api/authenticate").permitAll().antMatchers("/api/account/reset_password/init")
+				.permitAll().antMatchers("/api/account/reset_password/finish").permitAll()
+				.antMatchers("/api/profile-info").permitAll().antMatchers("/api/**").authenticated()
+				.antMatchers("/management/**").hasAuthority(AuthoritiesConstants.ADMIN).antMatchers("/v2/api-docs/**")
+				.permitAll().antMatchers("/swagger-resources/configuration/ui").permitAll()
+				.antMatchers("/swagger-ui/index.html").hasAuthority(AuthoritiesConstants.ADMIN).and()
+				.apply(securityConfigurerAdapter());
 
-    private JWTConfigurer securityConfigurerAdapter() {
-        return new JWTConfigurer(tokenProvider);
-    }
+	}
 
-    @Bean
-    public SecurityEvaluationContextExtension securityEvaluationContextExtension() {
-        return new SecurityEvaluationContextExtension();
-    }
+	private JWTConfigurer securityConfigurerAdapter() {
+		return new JWTConfigurer(tokenProvider);
+	}
+
+	@Bean
+	public SecurityEvaluationContextExtension securityEvaluationContextExtension() {
+		return new SecurityEvaluationContextExtension();
+	}
+
+/*	@Bean
+	public User foo() {
+		User user = new User();
+		user.setLogin("admin");
+		user.setPassword("password");
+		user.setFirstName("Admin");
+		user.setLastName("Adminson");
+		user.setEmail("areg.shahbazian@youngcolfield.nl");
+		user.setActivated(true);
+		
+		
+		HashSet<String> authorities = new HashSet<>();
+		authorities.add(AuthoritiesConstants.ADMIN);
+		authorities.add(AuthoritiesConstants.USER);
+		
+		ManagedUserVM managedUserVM = new ManagedUserVM(1, "admin", "admin", "Admin", "Adminson", "areg.shahbazian@youngcolfield.nl", true, "EN", authorities , createdBy, createdDate, lastModifiedBy, lastModifiedDate)
+		
+		
+		return userService.createUser(new ManagedUserVM(user));
+	}*/
 }
