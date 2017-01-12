@@ -1,6 +1,9 @@
 package com.teamz.config;
 
+import com.teamz.domain.Authority;
 import com.teamz.domain.User;
+import com.teamz.repository.AuthorityRepository;
+import com.teamz.repository.UserRepository;
 import com.teamz.security.*;
 import com.teamz.security.jwt.*;
 import com.teamz.service.UserService;
@@ -23,6 +26,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.data.repository.query.SecurityEvaluationContextExtension;
 
+import java.time.ZonedDateTime;
 import java.util.HashSet;
 
 import javax.inject.Inject;
@@ -42,8 +46,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	private TokenProvider tokenProvider;
 
 	@Inject
-	private UserService userService;
-
+	private UserRepository userRepository;
+	
+	@Inject
+	private AuthorityRepository authorityRepository;
+	
+	
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
@@ -90,24 +98,35 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		return new SecurityEvaluationContextExtension();
 	}
 
-/*	@Bean
+	
+	
+	@Bean
 	public User foo() {
+		Authority adminAuthority = new Authority();
+		adminAuthority.setName(AuthoritiesConstants.ADMIN);
+		authorityRepository.save(adminAuthority);
+		Authority userAuthority = new Authority();
+		userAuthority.setName(AuthoritiesConstants.USER);
+		authorityRepository.save(userAuthority);
+		
+
 		User user = new User();
 		user.setLogin("admin");
-		user.setPassword("password");
+		user.setPassword("$2a$10$gSAhZrxMllrbgj/kkK9UceBPpChGWJA7SYIb1Mqo.n5aNLq1/oRrC");
 		user.setFirstName("Admin");
 		user.setLastName("Adminson");
 		user.setEmail("areg.shahbazian@youngcolfield.nl");
 		user.setActivated(true);
+		user.setCreatedBy("system");
+		user.setCreatedDate(ZonedDateTime.now());
 		
 		
-		HashSet<String> authorities = new HashSet<>();
-		authorities.add(AuthoritiesConstants.ADMIN);
-		authorities.add(AuthoritiesConstants.USER);
+		HashSet<Authority> authorities = new HashSet<>();
+		authorities.add(userAuthority);
+		authorities.add(adminAuthority);
+		user.setAuthorities(authorities);
 		
-		ManagedUserVM managedUserVM = new ManagedUserVM(1, "admin", "admin", "Admin", "Adminson", "areg.shahbazian@youngcolfield.nl", true, "EN", authorities , createdBy, createdDate, lastModifiedBy, lastModifiedDate)
-		
-		
-		return userService.createUser(new ManagedUserVM(user));
-	}*/
+
+		return userRepository.save(user);
+	}
 }
