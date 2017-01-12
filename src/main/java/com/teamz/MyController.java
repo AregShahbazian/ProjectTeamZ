@@ -1,14 +1,18 @@
 package com.teamz;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import javax.inject.Inject;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
+
+import com.teamz.repository.MovieRepository;
 
 @RestController
 public class MyController {
-
+	
+	@Inject 
+	MovieRepository movieRepo;
+	
 	@RequestMapping("quiz")
 	public String post() {
 		
@@ -16,6 +20,8 @@ public class MyController {
 		
 		Question q1 = new Question();
 		
+		//String movieId = movieRepo.getRandomMovie();
+				
 		display = q1.generate("tt0468569");
 		
 		return display;
