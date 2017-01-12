@@ -20,9 +20,9 @@ public class MyController {
 		
 		Question q1 = new Question();
 		
-		//String movieId = movieRepo.getRandomMovie();
+		String movieId = movieRepo.getRandomMovie();
 				
-		display = q1.generate("tt0468569");
+		display = q1.generate(movieId);
 		
 		return display;
 	}
