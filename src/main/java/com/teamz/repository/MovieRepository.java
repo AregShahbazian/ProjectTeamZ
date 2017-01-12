@@ -7,11 +7,11 @@ import org.springframework.data.jpa.repository.Query;
 
 import com.teamz.domain.Movie;
 
-public interface MovieRepository extends JpaRepository<Movie, Long>{
-	
-	//need perfect camel case, parameter must exactly match attribute in Movie
+public interface MovieRepository extends JpaRepository<Movie, Long> {
+
+	// need perfect camel case, parameter must exactly match attribute in Movie
 	List<Movie> findOneByApiId(String apiId);
-	
-	//@Query("select * from movie")
-	//Movie getRandomMovie();
+
+	@Query(value = "select m from Movie m")
+	Movie getRandomMovie();
 }
