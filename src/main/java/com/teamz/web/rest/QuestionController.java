@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.teamz.domain.QuestionType;
 import com.teamz.repository.MovieRepository;
 import com.teamz.repository.QuestionTypeRepository;
+import com.teamz.repository.QuizRepository;
 import com.teamz.service.QuestionService;
 
 @RestController
@@ -22,7 +23,12 @@ public class QuestionController {
 	QuestionTypeRepository qtRepo;
 	
 	@Inject
+	QuizRepository QuizRepo;
+	
+	
+	@Inject
 	QuestionService questionService;
+	
 	
 	@RequestMapping("/question/")
 	public String post() {
@@ -30,12 +36,14 @@ public class QuestionController {
 		JSONObject questionJson;
 		
 		String movieId = movieRepo.getRandomMovie();
-				
+		
 		questionJson = questionService.generate(movieId);
 		
 		//get the question String
 		QuestionType qt = qtRepo.getRandomQuestionType();
 		String displayQt = qt.getqTemplate();
+		
+		
 		
 		//replace the placeholder
 		String title;
