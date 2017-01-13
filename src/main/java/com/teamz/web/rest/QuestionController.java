@@ -1,4 +1,4 @@
-package com.teamz;
+package com.teamz.web.rest;
 
 import javax.inject.Inject;
 
@@ -10,9 +10,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.teamz.domain.QuestionType;
 import com.teamz.repository.MovieRepository;
 import com.teamz.repository.QuestionTypeRepository;
+import com.teamz.service.QuestionService;
 
 @RestController
-public class MyController {
+public class QuestionController {
 	
 	@Inject 
 	MovieRepository movieRepo;
@@ -20,16 +21,17 @@ public class MyController {
 	@Inject
 	QuestionTypeRepository qtRepo;
 	
-	@RequestMapping("quiz")
+	@Inject
+	QuestionService questionService;
+	
+	@RequestMapping("/question/")
 	public String post() {
 		
 		JSONObject questionJson;
 		
-		Question q1 = new Question();
-		
 		String movieId = movieRepo.getRandomMovie();
 				
-		questionJson = q1.generate(movieId);
+		questionJson = questionService.generate(movieId);
 		
 		//get the question String
 		QuestionType qt = qtRepo.getRandomQuestionType();

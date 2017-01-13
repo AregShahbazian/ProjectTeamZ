@@ -1,18 +1,12 @@
-package com.teamz;
+package com.teamz.service;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-public class Question {
-
-	private enum qType {
-		year, director, awards
-	};
-
-	// stuff
-	
-
+@Service
+public class QuestionService {
 
 	public JSONObject generate(String apiId) {
 		
