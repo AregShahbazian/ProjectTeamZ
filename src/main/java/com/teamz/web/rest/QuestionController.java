@@ -47,7 +47,33 @@ public class QuestionController {
 		}
 		displayQt = displayQt.replace("#MovieNameZ", title);
 				
-		return displayQt + "<br><br>" + questionJson;
+		return displayQt + "<br><br>" + formatJson(questionJson);
+	}
+	
+	private String formatJson(JSONObject json) {
+		
+		
+		String display = "";
+		
+		if (json != null) {
+			//terminate
+		
+			for (String k: JSONObject.getNames(json)) {
+				
+				try {
+					
+					display += k + " : "+ json.get(k) +"<br>";
+					
+				} catch (JSONException e) {
+					e.printStackTrace();
+					return "";
+				}
+				
+			}
+		} else return "";
+		
+		return display;
+		
 	}
 
 }

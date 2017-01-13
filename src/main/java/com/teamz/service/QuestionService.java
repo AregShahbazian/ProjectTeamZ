@@ -11,27 +11,6 @@ public class QuestionService {
 	public JSONObject generate(String apiId) {
 		
 		JSONObject movieJSON = getQuestionJson(apiId);
-	
-		
-		/*
-		String display = "";
-		
-		if (movieJSON != null) {
-			//terminate
-		
-			for (String k: JSONObject.getNames(movieJSON)) {
-				
-				try {
-					
-					display += k + " : "+ movieJSON.get(k) +"<br>";
-					
-				} catch (JSONException e) {
-					e.printStackTrace();
-				}
-				
-			}
-		}
-		*/
 		
 		return movieJSON;
 
