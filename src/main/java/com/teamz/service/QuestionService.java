@@ -22,17 +22,15 @@ public class QuestionService {
 	@Inject
 	QuestionTypeRepository qtRepo;
 	
-	public String generate() {
+	public String generate(String movieId, QuestionType qt) {
 		
 		//get data from movie API
-		String movieId = movieRepo.getRandomMovie();
 		JSONObject movieJSON = getQuestionJson(movieId);
 		
 		//get the question String
-		QuestionType qt = qtRepo.getRandomQuestionType();
 		String displayedQuestion = qt.getqTemplate();
-		
-		
+
+
 		//replace the placeholder
 		String title;
 		try {
@@ -73,6 +71,14 @@ public class QuestionService {
 		//TODO: use repo to save response
 	}
 	
+	//to generate random questions
+	public String getRandomMovieId() {
+		return movieRepo.getRandomMovie();
+	}
+	
+	public QuestionType getRandomQuestionType() {
+		return qtRepo.getRandomQuestionType();
+	}
 	
 	private String formatJson(JSONObject json) {
 		

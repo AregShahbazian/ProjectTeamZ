@@ -34,8 +34,14 @@ public class QuestionController {
 	@GetMapping("/question/")
 	public String getQuestion() {
 		
+		String movieId = questionService.getRandomMovieId();
+		QuestionType qt = questionService.getRandomQuestionType();
+		
+		//call optionservice for all answer options
 		// TODO: Include the options in the response as JSON
-		return questionService.generate();
+		
+		
+		return questionService.generate(movieId, qt);
 	}
 	
 

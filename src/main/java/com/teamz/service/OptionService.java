@@ -2,15 +2,16 @@ package com.teamz.service;
 
 import javax.inject.Inject;
 
-import org.json.JSONObject;
 import org.springframework.stereotype.Service;
+
+import com.teamz.domain.QuestionType;
 
 @Service
 public class OptionService {
 	
 	@Inject QuestionService questionService;
 	
-	public JSONObject generateOptions(String rightAnswerApiId) {
+	public String[] generateOptions(String rightAnswerApiId, QuestionType qt) {
 		
 		//TODO: ...
 		return null;
