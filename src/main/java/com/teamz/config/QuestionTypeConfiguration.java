@@ -18,7 +18,7 @@ public class QuestionTypeConfiguration {
 		String[] questionTypes = {"year" , "director", "actors"};
 		String[] questionTemplates = {"In which year was the movie #MovieNameZ released?", 
 										"Who directed #MovieNameZ?",
-										"Which actors played in #MovieNameZ"};
+										"Which actors played in #MovieNameZ?"};
 		if (questionTypes.length == questionTemplates.length){
 			//build the database of question types
 			for (int i = 0; i < questionTypes.length; i++){
