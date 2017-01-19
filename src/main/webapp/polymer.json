@@ -3,7 +3,7 @@
   "shell": "src/movie-master.html",
   "fragments": [
     "src/home-page.html",
-    "src/question-page.html"
+    "src/quiz-page.html"
   ],
   "sourceGlobs": [
    "src/**/*",

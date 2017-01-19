@@ -5,7 +5,7 @@
 
 <link rel="import" href="app-data.html">
 
-<dom-module id="question-page">
+<dom-module id="quiz-page">
 	<template>
 		<style>
 			:host {
@@ -39,13 +39,14 @@
 	<script>
 		(function() {
 			Polymer({
-				is: 'question-page',
+				is: 'quiz-page',
 
 				properties: {
 					storedUser: Object
 				},
 				
 				handleQuestionResponse: function(event) {
+					var response = JSON.parse(event.detail.response);
 					console.log(event.detail.response);
 				},				
 				
