@@ -15,7 +15,7 @@ public class QuestionTypeConfiguration {
 	
 	@Inject
 	public void buildQuestionTypeRepo(){
-		String[] questionTypes = {"year" , "director", "actors"};
+		String[] questionTypes = {"Year" , "Director", "Actors"};
 		String[] questionTemplates = {"In which year was the movie #MovieNameZ released?", 
 										"Who directed #MovieNameZ?",
 										"Which actors played in #MovieNameZ?"};

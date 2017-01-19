@@ -48,6 +48,7 @@ public class QuestionController {
 		//call optionservice for all answer options
 		// TODO: Include the options in the response as JSON
 		
+		String[] answerOptions = optionService.generateOptions(movieId, qt);
 		
 		return totalQuestion.toString();
 	}
