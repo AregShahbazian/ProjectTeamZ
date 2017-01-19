@@ -1,0 +1,61 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../bower_components/iron-localstorage/iron-localstorage.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+
+<link rel="import" href="app-data.html">
+
+<dom-module id="quiz-page">
+	<template>
+		<style>
+			:host {
+				--app-primary-color: #4285f4;
+				--app-secondary-color: black;
+				display: block;
+			}
+		</style>
+
+		<iron-localstorage name="user-storage" value="{{storedUser}}"></iron-localstorage>
+		<app-data key="userData" data="{{storedUser}}"></app-data>
+
+
+		<iron-ajax
+			auto
+			id="getQuestionAjax"
+			url="http://localhost:3001/api/random-quote"
+			method="get"
+			content-type="application/json"
+			handle-as="text"
+			on-response="handleQuestionResponse"
+			on-error="handleUserError"></iron-ajax>
+			
+		<!-- TODO: Iron Ajax to fetch a question -->
+
+		<!-- TODO: Display question with custom element -->
+		<p>[Question placeholder]</p>
+		
+	</template>
+
+	<script>
+		(function() {
+			Polymer({
+				is: 'quiz-page',
+
+				properties: {
+					storedUser: Object
+				},
+				
+				handleQuestionResponse: function(event) {
+					var response = JSON.parse(event.detail.response);
+					console.log(event.detail.response);
+				},				
+				
+				handleUserError: function(event) {
+					console.log("bb" + "aa");
+					var response = JSON.parse(event.detail.response);
+				},				
+				
+			});
+		}());
+	</script>
+</dom-module>

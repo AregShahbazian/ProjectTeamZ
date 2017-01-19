@@ -1,0 +1,76 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/app-route/app-location.html">
+<link rel="import" href="../bower_components/app-route/app-route.html">
+<link rel="import" href="../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../bower_components/iron-localstorage/iron-localstorage.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+
+<link rel="import" href="app-data.html">
+
+<dom-module id="movie-master">
+	<template>
+		<style>
+			:host {
+				--app-primary-color: #4285f4;
+				--app-secondary-color: black;
+				display: block;
+			}
+		</style>
+
+		<iron-localstorage name="user-storage" value="{{storedUser}}"></iron-localstorage>
+		<app-data key="userData" data="{{storedUser}}"></app-data>
+
+		<app-location route="{{route}}"></app-location>
+		<app-route
+			route="{{route}}"
+			pattern="/:page"
+			data="{{routeData}}"
+			tail="{{subroute}}"></app-route>
+
+		<iron-pages
+			selected="[[page]]"
+			attr-for-selected="name"
+			fallback-selection="not-found"
+			role="main">
+			<home-page name="home-page"></home-page>
+			<quiz-page name="quiz-page"></quiz-page>
+			<results-page name="results-page"></results-page>
+			<not-found name="not-found"></not-found>
+		</iron-pages>
+	</template>
+
+	<script>
+		(function() {
+			Polymer({
+				is: 'movie-master',
+
+				properties: {
+					page: {
+						type: String,
+						reflectToAttribute: true,
+						observer: '_pageChanged'
+					},
+					storedUser: Object
+				},
+
+				observers: [
+					'_routePageChanged(routeData.page)'
+				],
+
+				_routePageChanged: function(page) {
+					this.page = page || 'home-page';
+				},
+
+				_pageChanged: function(page) {
+					// Load page import on demand. Show 404 page if fails
+					var resolvedPageUrl = this.resolveUrl(page + '.html');
+					this.importHref(resolvedPageUrl, null, this._showPage404, true);
+				},
+				
+				_showPage404: function() {
+					this.page = 'not-found';
+				}
+			});
+		}());
+	</script>
+</dom-module>
