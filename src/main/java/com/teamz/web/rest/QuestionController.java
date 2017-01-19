@@ -37,11 +37,19 @@ public class QuestionController {
 		String movieId = questionService.getRandomMovieId();
 		QuestionType qt = questionService.getRandomQuestionType();
 		
+		JSONObject totalQuestion = new JSONObject();
+		try {
+			totalQuestion.put("displayedQuestion",questionService.generate(movieId, qt));
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		//call optionservice for all answer options
 		// TODO: Include the options in the response as JSON
 		
 		
-		return questionService.generate(movieId, qt);
+		return totalQuestion.toString();
 	}
 	
 
