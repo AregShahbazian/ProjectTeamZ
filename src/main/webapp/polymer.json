@@ -2,10 +2,11 @@
   "entrypoint": "index.html",
   "shell": "src/movie-master.html",
   "fragments": [
-    "src/home-page.html",
-    "src/login-page.html",
-    "src/results-page.html",
-   	"src/quiz-page.html"
+    "src/pages/home-page.html",
+    "src/pages/login-page.html",
+    "src/pages/results-page.html",
+   	"src/pages/quiz-page.html",
+   	"src/pages/not-found.html"
   ],
   "sourceGlobs": [
    "src/**/*",

@@ -16,7 +16,7 @@ import com.teamz.service.OptionService;
 import com.teamz.service.QuestionService;
 import com.teamz.service.dto.QuestionDTO;
 
-@CrossOrigin(origins = "http://localhost:8081")
+@CrossOrigin(origins = "http://localhost:*")
 @RestController
 public class QuestionController {
 	

@@ -1,9 +1,9 @@
-<link rel="import" href="../bower_components/polymer/polymer.html">
-<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
-<link rel="import" href="../bower_components/iron-localstorage/iron-localstorage.html">
-<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../../bower_components/iron-localstorage/iron-localstorage.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
 
-<link rel="import" href="app-data.html">
+<link rel="import" href="../common/app-data.html">
 
 <dom-module id="quiz-page">
 	<template>
@@ -15,7 +15,10 @@
 			}
 		</style>
 
-		<iron-localstorage name="user-storage" value="{{storedUser}}"></iron-localstorage>
+		<iron-localstorage 
+			name="user-storage" 
+			value="{{storedUser}}"></iron-localstorage>
+			
 		<app-data key="userData" data="{{storedUser}}"></app-data>
 
 		<iron-ajax
@@ -37,7 +40,7 @@
 		(function() {
 			Polymer({
 				is: 'quiz-page',
-
+				
 				properties: {
 					storedUser: Object
 				},
@@ -50,7 +53,7 @@
 					  	var response = event.detail.response;
 						console.log(response);
 					}
-				},				
+				}	
 				
 			});
 		}());

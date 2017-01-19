@@ -1,8 +1,9 @@
-<link rel="import" href="../bower_components/polymer/polymer.html">
-<link rel="import" href="../bower_components/iron-localstorage/iron-localstorage.html">
-<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-localstorage/iron-localstorage.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
 
-<link rel="import" href="app-data.html">
+<link rel="import" href="../common/app-data.html">
+
 
 <dom-module id="home-page">
 	<template>
@@ -31,9 +32,7 @@
 
 		<iron-localstorage 
 			name="user-storage" 
-			value="{{storedUser}}" 
-			on-iron-localstorage-load="checkLogin"
-			iron-localstorage-load-empty="goToLogin"></iron-localstorage>
+			value="{{storedUser}}"></iron-localstorage>
 	
 		<app-data key="userData" data="{{storedUser}}"></app-data>
 
@@ -51,30 +50,17 @@
 		(function() {
 			Polymer({
 				is: 'home-page',
-
+				
 				properties: {
 					storedUser: Object
 				},
 				
-				checkLogin: function() {
-					// if entering site on the secret quotes page, verify if logged in and if so, preload a secret quote
-					if (!this.storedUser.loggedin) {
-						this.goToLogin();
-					}
-				},
-			    
-				goToLogin: function() {
-			        alert();
-			    },
-			    
-			    
-			    
 				startQuiz: function() {
 					// !! This is not yeat loaed when create function is called ..
 					console.log(this.storedUser);
-					//console.log("Starting Quiz");
-					//this.set('route.path', '/quiz-page');
-				},
+					console.log("Starting Quiz");
+					this.set('route.path', '/quiz-page');
+				}
 
 			});
 		}());
