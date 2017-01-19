@@ -88,7 +88,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //    		.antMatchers("/bower_components/**").permitAll()
 //    		.antMatchers("/js/**").permitAll()
 //    		.antMatchers("/css/**").permitAll()
-    		//.antMatchers("/secure.html").hasAuthority(AuthoritiesConstants.ADMIN)
+    		//.antMatchers("/question").hasAuthority(AuthoritiesConstants.ADMIN)
         	.antMatchers("/**").permitAll()
     		;//.antMatchers("/**").hasAuthority(AuthoritiesConstants.ADMIN);
 

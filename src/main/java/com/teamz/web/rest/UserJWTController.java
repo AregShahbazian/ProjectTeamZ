@@ -19,7 +19,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
-@CrossOrigin(origins = "http://localhost:*")
+@CrossOrigin(origins = "http://localhost:8081")
 @RestController
 public class UserJWTController {
 

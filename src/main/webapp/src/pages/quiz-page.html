@@ -30,10 +30,10 @@
 			handle-as="json"
 			on-response="handleQuestionResponse"></iron-ajax>
 			
-		<!-- TODO: Iron Ajax to fetch a question -->
-
 		<!-- TODO: Display question with custom element -->
 		<p>[Question placeholder]</p>
+		
+		
 	</template>
 
 	<script>
@@ -46,10 +46,13 @@
 				},
 				
 				handleQuestionResponse: function(event, request) {
+					var response = event.detail.response;
 					var status = request.xhr.status;
+					
 					if(status === 403){
-						
+						// TODO: Handle unauthorized
 					}else{
+						// TODO: Handle response
 					  	var response = event.detail.response;
 						console.log(response);
 					}
