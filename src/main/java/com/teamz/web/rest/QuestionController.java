@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import javax.inject.Inject;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
@@ -17,8 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.teamz.domain.QuestionType;
-import com.teamz.repository.MovieRepository;
-import com.teamz.repository.QuestionTypeRepository;
 import com.teamz.repository.QuizRepository;
 import com.teamz.service.OptionService;
 import com.teamz.service.QuestionService;
@@ -45,17 +44,16 @@ public class QuestionController {
 		QuestionType qt = questionService.getRandomQuestionType();
 		
 		JSONObject totalQuestion = new JSONObject();
+		String dQuestion = questionService.generate(movieId, qt);
+		String[] aOptions = optionService.generateOptions(movieId, qt);
+
 		try {
-			totalQuestion.put("displayedQuestion",questionService.generate(movieId, qt));
+			totalQuestion.put("displayedQuestion", dQuestion);			
+			totalQuestion.put("answerOptions", aOptions);
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		//call optionservice for all answer options
-		// TODO: Include the options in the response as JSON
-		
-		String[] answerOptions = optionService.generateOptions(movieId, qt);
 		
 		return totalQuestion.toString();
 	}

@@ -42,7 +42,7 @@ public class QuestionService {
 		displayedQuestion = displayedQuestion.replace("#MovieNameZ", title);
 		
 		
-		return displayedQuestion + "<br><br>" + formatJson(movieJSON);
+		return displayedQuestion;
 
 	}
 	
