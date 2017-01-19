@@ -29,15 +29,20 @@
 
 		<app-location route="{{route}}"></app-location>
 
-		<iron-localstorage name="user-storage" value="{{storedUser}}"></iron-localstorage>
+		<iron-localstorage 
+			name="user-storage" 
+			value="{{storedUser}}" 
+			on-iron-localstorage-load="checkLogin"
+			iron-localstorage-load-empty="goToLogin"></iron-localstorage>
+	
 		<app-data key="userData" data="{{storedUser}}"></app-data>
 
 		<div id="container">
 			<h1 class="centered"><b> Movie master </b></h1>
-			<p class="centered"> Click on the start button to start the movie quiz! </p>
+			<p class="centered"> Hello [[storedUser.name]]! Click on the start button to start the movie quiz! </p>
 		    
 			<div id="startbutton">
-					<paper-button on-tap="startQuiz" raised>START</paper-button>
+				<paper-button on-tap="startQuiz" raised>START</paper-button>
 			</div>
 		</div>
 	</template>
@@ -50,10 +55,25 @@
 				properties: {
 					storedUser: Object
 				},
-
+				
+				checkLogin: function() {
+					// if entering site on the secret quotes page, verify if logged in and if so, preload a secret quote
+					if (!this.storedUser.loggedin) {
+						this.goToLogin();
+					}
+				},
+			    
+				goToLogin: function() {
+			        alert();
+			    },
+			    
+			    
+			    
 				startQuiz: function() {
-					console.log("Starting Quiz");
-					this.set('route.path', '/quiz-page');
+					// !! This is not yeat loaed when create function is called ..
+					console.log(this.storedUser);
+					//console.log("Starting Quiz");
+					//this.set('route.path', '/quiz-page');
 				},
 
 			});

@@ -25,8 +25,7 @@
 			method="get"
 			content-type="application/json"
 			handle-as="json"
-			on-response="handleQuestionResponse"
-			on-error="handleUserError"></iron-ajax>
+			on-response="handleQuestionResponse"></iron-ajax>
 			
 		<!-- TODO: Iron Ajax to fetch a question -->
 
@@ -43,12 +42,14 @@
 					storedUser: Object
 				},
 				
-				handleQuestionResponse: function(event) {
-					var response = event.detail.response;
-					console.log(response.displayedQuestion);
-				},				
-				
-				handleUserError: function(event) {
+				handleQuestionResponse: function(event, request) {
+					var status = request.xhr.status;
+					if(status === 403){
+						
+					}else{
+					  	var response = event.detail.response;
+						console.log(response);
+					}
 				},				
 				
 			});

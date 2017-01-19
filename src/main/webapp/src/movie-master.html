@@ -26,12 +26,15 @@
 			pattern="/:page"
 			data="{{routeData}}"
 			tail="{{subroute}}"></app-route>
-
+		
+		<paper-button raised on-tap="logout">Log Out</paper-button>
+		
 		<iron-pages
 			selected="[[page]]"
 			attr-for-selected="name"
 			fallback-selection="not-found"
 			role="main">
+			<login-page name="login-page"></login-page>
 			<home-page name="home-page"></home-page>
 			<quiz-page name="quiz-page"></quiz-page>
 			<results-page name="results-page"></results-page>
@@ -69,6 +72,11 @@
 				
 				_showPage404: function() {
 					this.page = 'not-found';
+				},
+				
+				logout: function() {
+					// remove user data
+					this.storedUser = null;
 				}
 			});
 		}());

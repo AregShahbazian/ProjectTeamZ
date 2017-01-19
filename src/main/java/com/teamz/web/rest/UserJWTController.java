@@ -19,8 +19,8 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+@CrossOrigin(origins = "http://localhost:8081")
 @RestController
-@RequestMapping("/api")
 public class UserJWTController {
 
     @Inject

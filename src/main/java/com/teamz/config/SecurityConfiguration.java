@@ -1,19 +1,14 @@
 package com.teamz.config;
 
-import com.teamz.domain.Authority;
-import com.teamz.domain.User;
-import com.teamz.repository.AuthorityRepository;
-import com.teamz.repository.UserRepository;
-import com.teamz.security.*;
-import com.teamz.security.jwt.*;
-import com.teamz.service.UserService;
-import com.teamz.web.rest.vm.ManagedUserVM;
+import java.time.ZonedDateTime;
+import java.util.HashSet;
+
+import javax.inject.Inject;
 
 import org.springframework.beans.factory.BeanInitializationException;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -22,14 +17,18 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.data.repository.query.SecurityEvaluationContextExtension;
 
-import java.time.ZonedDateTime;
-import java.util.HashSet;
-
-import javax.inject.Inject;
+import com.teamz.domain.Authority;
+import com.teamz.domain.User;
+import com.teamz.repository.AuthorityRepository;
+import com.teamz.repository.UserRepository;
+import com.teamz.security.AuthoritiesConstants;
+import com.teamz.security.Http401UnauthorizedEntryPoint;
+import com.teamz.security.jwt.JWTConfigurer;
+import com.teamz.security.jwt.TokenProvider;
 
 @Configuration
 @EnableWebSecurity
@@ -73,21 +72,28 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/swagger-ui/index.html").antMatchers("/test/**").antMatchers("/h2-console/**");
 	}
 
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		http.exceptionHandling().authenticationEntryPoint(authenticationEntryPoint).and().csrf().disable().headers()
-				.frameOptions().disable().and().sessionManagement()
-				.sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
-				.antMatchers("/api/register").permitAll().antMatchers("/api/activate").permitAll()
-				.antMatchers("/api/authenticate").permitAll().antMatchers("/api/account/reset_password/init")
-				.permitAll().antMatchers("/api/account/reset_password/finish").permitAll()
-				.antMatchers("/api/profile-info").permitAll().antMatchers("/api/**").authenticated()
-				.antMatchers("/management/**").hasAuthority(AuthoritiesConstants.ADMIN).antMatchers("/v2/api-docs/**")
-				.permitAll().antMatchers("/swagger-resources/configuration/ui").permitAll()
-				.antMatchers("/swagger-ui/index.html").hasAuthority(AuthoritiesConstants.ADMIN).and()
-				.apply(securityConfigurerAdapter());
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        
+    	http
+	    	.csrf()
+	        .disable()
+	        .headers()
+	        .frameOptions()
+	        .disable()
+        .and()
+        	.authorizeRequests()
+    		//.antMatchers("/login.html").hasAuthority(AuthoritiesConstants.ADMIN)
+//    		.antMatchers("/api/authenticate").permitAll()
+//    		.antMatchers("/bower_components/**").permitAll()
+//    		.antMatchers("/js/**").permitAll()
+//    		.antMatchers("/css/**").permitAll()
+    		//.antMatchers("/secure.html").hasAuthority(AuthoritiesConstants.ADMIN)
+        	.antMatchers("/**").permitAll()
+    		;//.antMatchers("/**").hasAuthority(AuthoritiesConstants.ADMIN);
 
-	}
+    }
+
 
 	private JWTConfigurer securityConfigurerAdapter() {
 		return new JWTConfigurer(tokenProvider);
@@ -100,8 +106,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	
 	
-	@Bean
-	public User foo() {
+	@Inject
+	public void foo() {
 		Authority adminAuthority = new Authority();
 		adminAuthority.setName(AuthoritiesConstants.ADMIN);
 		authorityRepository.save(adminAuthority);
@@ -125,8 +131,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		authorities.add(userAuthority);
 		authorities.add(adminAuthority);
 		user.setAuthorities(authorities);
-		
 
-		return userRepository.save(user);
+		userRepository.save(user);
 	}
 }
