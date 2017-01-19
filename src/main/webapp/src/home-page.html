@@ -1,0 +1,62 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/iron-localstorage/iron-localstorage.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+
+<link rel="import" href="app-data.html">
+
+<dom-module id="home-page">
+	<template>
+		<style>
+			:host {
+				--app-primary-color: #4285f4;
+				--app-secondary-color: black;
+				display: block;
+			}
+			
+			#container{
+				margin:0 20%;
+				border: solid black 1px;
+			}
+			
+			.centered{
+				text-align: center;
+			}
+			
+			#startbutton{
+				float: right;
+			}			
+		</style>
+
+		<app-location route="{{route}}"></app-location>
+
+		<iron-localstorage name="user-storage" value="{{storedUser}}"></iron-localstorage>
+		<app-data key="userData" data="{{storedUser}}"></app-data>
+
+		<div id="container">
+			<h1 class="centered"><b> Movie master </b></h1>
+			<p class="centered"> Click on the start button to start the movie quiz! </p>
+		    
+			<div id="startbutton">
+					<paper-button on-tap="startQuiz" raised>START</paper-button>
+			</div>
+		</div>
+	</template>
+
+	<script>
+		(function() {
+			Polymer({
+				is: 'home-page',
+
+				properties: {
+					storedUser: Object
+				},
+
+				startQuiz: function() {
+					console.log("Starting Quiz");
+					this.set('route.path', '/question-page');
+				},
+
+			});
+		}());
+	</script>
+</dom-module>

@@ -1,0 +1,15 @@
+{
+  "entrypoint": "index.html",
+  "shell": "src/movie-master.html",
+  "fragments": [
+    "src/home-page.html",
+    "src/question-page.html"
+  ],
+  "sourceGlobs": [
+   "src/**/*",
+   "bower.json"
+  ],
+  "includeDependencies": [
+    "bower_components/webcomponentsjs/webcomponents-lite.min.js"
+  ]
+}
