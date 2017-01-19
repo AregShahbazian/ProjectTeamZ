@@ -19,6 +19,7 @@ import com.teamz.service.OptionService;
 import com.teamz.service.QuestionService;
 import com.teamz.service.dto.QuestionDTO;
 
+@CrossOrigin(origins = "http://localhost:8081")
 @RestController
 public class QuestionController {
 	
@@ -55,7 +56,6 @@ public class QuestionController {
 	}
 	
 
-    @CrossOrigin(origins = "http://localhost:8081")
     @GetMapping("/question")
 	public QuestionDTO getQuestion1() throws URISyntaxException {
 		
