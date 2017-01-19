@@ -60,7 +60,7 @@ public class QuestionController {
 	
 
 	@GetMapping("/question")
-	public ResponseEntity<QuestionDTO> getQuestion1() throws URISyntaxException {
+	public QuestionDTO getQuestion1() throws URISyntaxException {
 		
 		String movieId = questionService.getRandomMovieId();
 		QuestionType qt = questionService.getRandomQuestionType();
@@ -68,11 +68,11 @@ public class QuestionController {
 		QuestionDTO totalQuestion = new QuestionDTO();
 		totalQuestion.setDisplayedQuestion(questionService.generate(movieId, qt));
 		
-		// TODO: Include the options as ArrayList<String> in the response as JSON
-		//call optionservice for all answer options
-		String[] answerOptions = optionService.generateOptions(movieId, qt);
+		ArrayList<String> answerOptions = new ArrayList<>();
+		// TODO: 
+		totalQuestion.setAnswerOptions(answerOptions);
 		
-		return new ResponseEntity<QuestionDTO>(totalQuestion, HttpStatus.OK);
+		return totalQuestion;
 	}
 	
 

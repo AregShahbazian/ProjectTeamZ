@@ -18,7 +18,6 @@
 		<iron-localstorage name="user-storage" value="{{storedUser}}"></iron-localstorage>
 		<app-data key="userData" data="{{storedUser}}"></app-data>
 
-
 		<iron-ajax
 			auto
 			id="getQuestionAjax"
@@ -33,7 +32,6 @@
 
 		<!-- TODO: Display question with custom element -->
 		<p>[Question placeholder]</p>
-		
 	</template>
 
 	<script>
@@ -46,8 +44,8 @@
 				},
 				
 				handleQuestionResponse: function(event) {
-					var response = JSON.parse(event.detail.response);
-					console.log(response);
+					//var response = JSON.parse(event.detail.response);
+					console.log(event);
 				},				
 				
 				handleUserError: function(event) {
