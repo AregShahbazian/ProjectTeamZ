@@ -1,9 +1,15 @@
 package com.teamz.web.rest;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
+
 import javax.inject.Inject;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,6 +22,7 @@ import com.teamz.repository.QuestionTypeRepository;
 import com.teamz.repository.QuizRepository;
 import com.teamz.service.OptionService;
 import com.teamz.service.QuestionService;
+import com.teamz.service.dto.QuestionDTO;
 
 @RestController
 public class QuestionController {
@@ -51,6 +58,23 @@ public class QuestionController {
 		String[] answerOptions = optionService.generateOptions(movieId, qt);
 		
 		return totalQuestion.toString();
+	}
+	
+
+	@GetMapping("/question")
+	public ResponseEntity<QuestionDTO> getQuestion1() throws URISyntaxException {
+		
+		String movieId = questionService.getRandomMovieId();
+		QuestionType qt = questionService.getRandomQuestionType();
+
+		QuestionDTO totalQuestion = new QuestionDTO();
+		totalQuestion.setDisplayedQuestion(questionService.generate(movieId, qt));
+		
+		// TODO: Include the options as ArrayList<String> in the response as JSON
+		//call optionservice for all answer options
+		String[] answerOptions = optionService.generateOptions(movieId, qt);
+		
+		return new ResponseEntity<QuestionDTO>(totalQuestion, HttpStatus.OK);
 	}
 	
 

@@ -22,10 +22,10 @@
 		<iron-ajax
 			auto
 			id="getQuestionAjax"
-			url="http://localhost:3001/api/random-quote"
+			url="http://localhost:8080/question"
 			method="get"
 			content-type="application/json"
-			handle-as="text"
+			handle-as="json"
 			on-response="handleQuestionResponse"
 			on-error="handleUserError"></iron-ajax>
 			
@@ -47,12 +47,10 @@
 				
 				handleQuestionResponse: function(event) {
 					var response = JSON.parse(event.detail.response);
-					console.log(event.detail.response);
+					console.log(response);
 				},				
 				
 				handleUserError: function(event) {
-					console.log("bb" + "aa");
-					var response = JSON.parse(event.detail.response);
 				},				
 				
 			});
