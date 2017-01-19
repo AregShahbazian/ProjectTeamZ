@@ -4,6 +4,9 @@ import javax.inject.Inject;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,77 +14,51 @@ import com.teamz.domain.QuestionType;
 import com.teamz.repository.MovieRepository;
 import com.teamz.repository.QuestionTypeRepository;
 import com.teamz.repository.QuizRepository;
+import com.teamz.service.OptionService;
 import com.teamz.service.QuestionService;
 
 @RestController
 public class QuestionController {
 	
-	@Inject 
-	MovieRepository movieRepo;
-	
-	@Inject
-	QuestionTypeRepository qtRepo;
-	
+
 	@Inject
 	QuizRepository QuizRepo;
 	
+	@Inject
+	OptionService optionService;
 	
 	@Inject
 	QuestionService questionService;
 	
 	
-	@RequestMapping("/question/")
-	public String post() {
+	@GetMapping("/question/")
+	public String getQuestion() {
 		
-		JSONObject questionJson;
+		String movieId = questionService.getRandomMovieId();
+		QuestionType qt = questionService.getRandomQuestionType();
 		
-		String movieId = movieRepo.getRandomMovie();
-		
-		questionJson = questionService.generate(movieId);
-		
-		//get the question String
-		QuestionType qt = qtRepo.getRandomQuestionType();
-		String displayQt = qt.getqTemplate();
-		
-		
-		
-		//replace the placeholder
-		String title;
+		JSONObject totalQuestion = new JSONObject();
 		try {
-			title = questionJson.get("Title").toString();
+			totalQuestion.put("displayedQuestion",questionService.generate(movieId, qt));
 		} catch (JSONException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
-			title = "";
 		}
-		displayQt = displayQt.replace("#MovieNameZ", title);
-				
-		return displayQt + "<br><br>" + formatJson(questionJson);
+		
+		//call optionservice for all answer options
+		// TODO: Include the options in the response as JSON
+		
+		String[] answerOptions = optionService.generateOptions(movieId, qt);
+		
+		return totalQuestion.toString();
 	}
 	
-	private String formatJson(JSONObject json) {
+
+	@PutMapping("/question/")
+	private void sendResponse(@RequestBody String response){
+		//still need to see how polymer sends request body 
 		
-		
-		String display = "";
-		
-		if (json != null) {
-			//terminate
-		
-			for (String k: JSONObject.getNames(json)) {
-				
-				try {
-					
-					display += k + " : "+ json.get(k) +"<br>";
-					
-				} catch (JSONException e) {
-					e.printStackTrace();
-					return "";
-				}
-				
-			}
-		} else return "";
-		
-		return display;
-		
+		// TODO: handle response with service
 	}
 
 }
