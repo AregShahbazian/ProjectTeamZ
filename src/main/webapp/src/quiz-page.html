@@ -44,8 +44,8 @@
 				},
 				
 				handleQuestionResponse: function(event) {
-					//var response = JSON.parse(event.detail.response);
-					console.log(event);
+					var response = event.detail.response;
+					console.log(response.displayedQuestion);
 				},				
 				
 				handleUserError: function(event) {
