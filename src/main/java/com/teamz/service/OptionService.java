@@ -6,6 +6,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 import com.teamz.domain.QuestionType;
@@ -17,10 +20,10 @@ public class OptionService {
 	
 	private int numOptions = 4;
 	
-	public String[] generateOptions(String rightAnswerApiId, QuestionType qt) {
+	public ArrayList<String> generateOptions(String rightAnswerApiId, QuestionType qt) {
 		
-		//return string
-		String[] answerOptions = new String[numOptions];
+		//return string list
+		String[] answerOptionsTemp = new String[numOptions];
 		
 		//call for right answer
 		RestTemplate restTemplate = new RestTemplate();
@@ -33,28 +36,29 @@ public class OptionService {
 		
 		try {
 			apiJson = new JSONObject(movie);
-			answerOptions[posCorrectAnswer] = apiJson.get(qt.getqType()).toString();
+			answerOptionsTemp[posCorrectAnswer] = apiJson.get(qt.getqType()).toString();
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
 		
 		//random other answer options
-		for (int i = 0; i < answerOptions.length; i++){
+		for (int i = 0; i < numOptions; i++){
 			if (i != posCorrectAnswer) {
 				//get another answer possibility
 				movie = restTemplate.getForObject("http://www.omdbapi.com/?i=" + questionService.getRandomMovieId() + "&plot=short&r=json", String.class);
 				
 				try {
 					apiJson = new JSONObject(movie);
-					answerOptions[i] = apiJson.get(qt.getqType()).toString();
+					answerOptionsTemp[i] = apiJson.get(qt.getqType()).toString();
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}
 			
 			}
 			else continue;
+			
 		}
-		
+		ArrayList<String> answerOptions = new ArrayList<String>(Arrays.asList(answerOptionsTemp));
 		return answerOptions;
 	}
 	
