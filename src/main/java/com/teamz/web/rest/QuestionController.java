@@ -1,12 +1,9 @@
 package com.teamz.web.rest;
 
 import java.net.URISyntaxException;
-import java.util.ArrayList;
 
 import javax.inject.Inject;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -31,30 +28,7 @@ public class QuestionController {
 	OptionService optionService;
 	
 	@Inject
-	QuestionService questionService;
-	
-	
-	@GetMapping("/question/")
-	public String getQuestion() {
-		
-		String movieId = questionService.getRandomMovieId();
-		QuestionType qt = questionService.getRandomQuestionType();
-		
-		JSONObject totalQuestion = new JSONObject();
-		String dQuestion = questionService.generate(movieId, qt);
-		String[] aOptions = optionService.generateOptions(movieId, qt);
-
-		try {
-			totalQuestion.put("displayedQuestion", dQuestion);			
-			totalQuestion.put("answerOptions", aOptions);
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return totalQuestion.toString();
-	}
-	
+	QuestionService questionService;	
 
     @GetMapping("/question")
 	public QuestionDTO getQuestion1() throws URISyntaxException {
@@ -64,10 +38,7 @@ public class QuestionController {
 
 		QuestionDTO totalQuestion = new QuestionDTO();
 		totalQuestion.setDisplayedQuestion(questionService.generate(movieId, qt));
-		
-		ArrayList<String> answerOptions = new ArrayList<>();
-		// TODO: 
-		totalQuestion.setAnswerOptions(answerOptions);
+		totalQuestion.setAnswerOptions(optionService.generateOptions(movieId, qt));
 		
 		return totalQuestion;
 	}
