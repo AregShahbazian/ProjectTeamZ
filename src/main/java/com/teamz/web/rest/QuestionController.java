@@ -44,7 +44,7 @@ public class QuestionController {
 	}
 	
 
-	@PutMapping("/question/")
+	@PutMapping("/question")
 	private void sendResponse(@RequestBody String response){
 		//still need to see how polymer sends request body 
 		
