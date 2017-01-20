@@ -1,6 +1,7 @@
 package com.teamz.config;
 
 import java.time.ZonedDateTime;
+import java.util.Arrays;
 import java.util.HashSet;
 
 import javax.inject.Inject;
@@ -20,6 +21,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.data.repository.query.SecurityEvaluationContextExtension;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.teamz.domain.Authority;
 import com.teamz.domain.User;
@@ -76,22 +80,25 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         
     	http
+	    	.exceptionHandling()
+	        .authenticationEntryPoint(authenticationEntryPoint)
+	    .and()
 	    	.csrf()
 	        .disable()
 	        .headers()
 	        .frameOptions()
 	        .disable()
         .and()
+            .sessionManagement()
+            .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        .and()
+	    	.cors()
+        .and()
         	.authorizeRequests()
-    		//.antMatchers("/login.html").hasAuthority(AuthoritiesConstants.ADMIN)
-//    		.antMatchers("/api/authenticate").permitAll()
-//    		.antMatchers("/bower_components/**").permitAll()
-//    		.antMatchers("/js/**").permitAll()
-//    		.antMatchers("/css/**").permitAll()
-    		//.antMatchers("/question").hasAuthority(AuthoritiesConstants.ADMIN)
+    		.antMatchers("/question").hasAuthority(AuthoritiesConstants.ADMIN)
         	.antMatchers("/**").permitAll()
-    		;//.antMatchers("/**").hasAuthority(AuthoritiesConstants.ADMIN);
-
+    	.and()
+            .apply(securityConfigurerAdapter());
     }
 
 
