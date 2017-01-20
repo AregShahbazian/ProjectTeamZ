@@ -1,8 +1,9 @@
-<link rel="import" href="../bower_components/polymer/polymer.html">
-<link rel="import" href="../bower_components/iron-localstorage/iron-localstorage.html">
-<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-localstorage/iron-localstorage.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
 
-<link rel="import" href="app-data.html">
+<link rel="import" href="../common/app-data.html">
+
 
 <dom-module id="home-page">
 	<template>
@@ -29,15 +30,18 @@
 
 		<app-location route="{{route}}"></app-location>
 
-		<iron-localstorage name="user-storage" value="{{storedUser}}"></iron-localstorage>
+		<iron-localstorage 
+			name="user-storage" 
+			value="{{storedUser}}"></iron-localstorage>
+	
 		<app-data key="userData" data="{{storedUser}}"></app-data>
 
 		<div id="container">
 			<h1 class="centered"><b> Movie master </b></h1>
-			<p class="centered"> Click on the start button to start the movie quiz! </p>
+			<p class="centered"> Hello [[storedUser.name]]! Click on the start button to start the movie quiz! </p>
 		    
 			<div id="startbutton">
-					<paper-button on-tap="startQuiz" raised>START</paper-button>
+				<paper-button on-tap="startQuiz" raised>START</paper-button>
 			</div>
 		</div>
 	</template>
@@ -46,15 +50,17 @@
 		(function() {
 			Polymer({
 				is: 'home-page',
-
+				
 				properties: {
 					storedUser: Object
 				},
-
+				
 				startQuiz: function() {
+					// !! This is not yeat loaed when create function is called ..
+					console.log(this.storedUser);
 					console.log("Starting Quiz");
 					this.set('route.path', '/quiz-page');
-				},
+				}
 
 			});
 		}());

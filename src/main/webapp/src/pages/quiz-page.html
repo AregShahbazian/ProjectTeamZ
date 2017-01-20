@@ -1,0 +1,64 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../../bower_components/iron-localstorage/iron-localstorage.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+
+<link rel="import" href="../common/app-data.html">
+
+<dom-module id="quiz-page">
+	<template>
+		<style>
+			:host {
+				--app-primary-color: #4285f4;
+				--app-secondary-color: black;
+				display: block;
+			}
+		</style>
+
+		<iron-localstorage 
+			name="user-storage" 
+			value="{{storedUser}}"></iron-localstorage>
+			
+		<app-data key="userData" data="{{storedUser}}"></app-data>
+
+		<iron-ajax
+			auto
+			id="getQuestionAjax"
+			url="http://localhost:8080/question"
+			method="get"
+			content-type="application/json"
+			handle-as="json"
+			on-response="handleQuestionResponse"></iron-ajax>
+			
+		<!-- TODO: Display question with custom element -->
+		<p>[Question placeholder]</p>
+		
+		
+	</template>
+
+	<script>
+		(function() {
+			Polymer({
+				is: 'quiz-page',
+				
+				properties: {
+					storedUser: Object
+				},
+				
+				handleQuestionResponse: function(event, request) {
+					var response = event.detail.response;
+					var status = request.xhr.status;
+					
+					if(status === 403){
+						// TODO: Handle unauthorized
+					}else{
+						// TODO: Handle response
+					  	var response = event.detail.response;
+						console.log(response);
+					}
+				}	
+				
+			});
+		}());
+	</script>
+</dom-module>

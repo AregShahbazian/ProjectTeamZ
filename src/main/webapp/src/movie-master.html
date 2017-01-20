@@ -5,7 +5,7 @@
 <link rel="import" href="../bower_components/iron-localstorage/iron-localstorage.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 
-<link rel="import" href="app-data.html">
+<link rel="import" href="common/app-data.html">
 
 <dom-module id="movie-master">
 	<template>
@@ -17,7 +17,12 @@
 			}
 		</style>
 
-		<iron-localstorage name="user-storage" value="{{storedUser}}"></iron-localstorage>
+		<iron-localstorage 
+			name="user-storage" 
+			value="{{storedUser}}" 
+			on-iron-localstorage-load="checkLogin"
+			on-iron-localstorage-load-empty="goToLogin"></iron-localstorage>
+
 		<app-data key="userData" data="{{storedUser}}"></app-data>
 
 		<app-location route="{{route}}"></app-location>
@@ -26,17 +31,21 @@
 			pattern="/:page"
 			data="{{routeData}}"
 			tail="{{subroute}}"></app-route>
-
+		
+		<paper-button hidden$="[[!storedUser.loggedin]]" raised on-tap="logout">Log Out</paper-button>
+		
 		<iron-pages
 			selected="[[page]]"
 			attr-for-selected="name"
 			fallback-selection="not-found"
 			role="main">
+			<login-page name="login-page"></login-page>
 			<home-page name="home-page"></home-page>
 			<quiz-page name="quiz-page"></quiz-page>
 			<results-page name="results-page"></results-page>
 			<not-found name="not-found"></not-found>
 		</iron-pages>
+		
 	</template>
 
 	<script>
@@ -63,13 +72,34 @@
 
 				_pageChanged: function(page) {
 					// Load page import on demand. Show 404 page if fails
-					var resolvedPageUrl = this.resolveUrl(page + '.html');
+					var resolvedPageUrl = this.resolveUrl('pages/' + page + '.html');
 					this.importHref(resolvedPageUrl, null, this._showPage404, true);
 				},
 				
 				_showPage404: function() {
 					this.page = 'not-found';
+				},
+				
+				checkLogin : function() {
+					// If user data is stored locally, but user is not logged in
+					if (!this.storedUser.loggedin) {
+						this.goToLogin();
+						return false;
+					}
+					return true;
+				},
+
+				// Redirect to login page
+				goToLogin : function() {
+					this.page = 'login-page';
+				},
+				
+				logout: function() {
+					// remove user data
+					this.storedUser = null;
+					this.set('route.path', '/login-page');
 				}
+			    
 			});
 		}());
 	</script>
