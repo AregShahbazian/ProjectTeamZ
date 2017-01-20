@@ -2,6 +2,7 @@
 <link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="../../bower_components/iron-localstorage/iron-localstorage.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="answer-buttons.html">
 
 <link rel="import" href="../common/app-data.html">
 
@@ -21,7 +22,8 @@
 			on-iron-localstorage-load="setTokenHeader"></iron-localstorage>
 			
 		<app-data key="userData" data="{{storedUser}}"></app-data>
-
+		
+		<!-- 
 		<iron-ajax
 			auto
 			id="getQuestionAjax"
@@ -30,9 +32,10 @@
 			content-type="application/json"
 			handle-as="json"
 			on-response="handleQuestionResponse"></iron-ajax>
+			-->
 			
 		<!-- TODO: Display question with custom element -->
-		<p>[Question placeholder]</p>
+		<div><answer-buttons></answer-buttons></div>
 		
 		
 	</template>
