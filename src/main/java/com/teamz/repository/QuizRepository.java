@@ -7,4 +7,6 @@ import com.teamz.domain.Quiz;
 public interface QuizRepository extends JpaRepository<Quiz, Long>{
 	
 	public Quiz findOneById(long Id);
+	
+	
 }

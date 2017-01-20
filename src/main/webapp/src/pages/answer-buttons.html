@@ -1,0 +1,80 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../../bower_components/iron-localstorage/iron-localstorage.html">
+<link rel="import" href="../../bower_components/paper-radio-group/paper-radio-group.html">
+<link rel="import" href="../../bower_components/paper-radio-button/paper-radio-button.html">
+
+<link rel="import" href="../common/app-data.html">
+
+<dom-module id="answer-buttons">
+	<template>
+		<style>
+			:host {
+				--app-primary-color: #4285f4;
+				--app-secondary-color: black;
+				display: block;
+			}
+		</style>
+
+		<iron-localstorage 
+			name="user-storage" 
+			value="{{storedUser}}"></iron-localstorage>
+			
+		<app-data key="userData" data="{{storedUser}}"></app-data>
+
+		<iron-ajax
+			auto
+			id="getanswerOptionsAjax"
+			url="http://localhost:8080/question"
+			method="get"
+			content-type="application/json"
+			handle-as="json"
+			on-response="handleanswerOptionsResponse"></iron-ajax>
+		
+		
+			<div>
+				[[dispayedQuestion]]<br>
+			</div>
+		
+		
+		<paper-radio-group>
+			<template is="dom-repeat" items="[[options]]" as="answer">
+				<paper-radio-button noink name="[[answer]]">[[answer]]</paper-radio-button><br><br>
+        	</template>
+        </paper-radio-group>	
+        
+
+		
+	</template>
+
+	<script>
+		(function() {
+			Polymer({
+				is: 'answer-buttons',
+				
+				properties: {
+					storedUser: Object,
+					options: Array,
+					dispayedQuestion: String
+				},
+				
+				handleanswerOptionsResponse: function(event, request) {
+					var response = event.detail.response;
+					var status = request.xhr.status;
+					
+					if(status === 403){
+						// TODO: Handle unauthorized
+					}else{
+						// TODO: Handle response
+					  	var response = event.detail.response;
+						console.log(response);
+						
+						this.options = response.answerOptions;
+						this.dispayedQuestion = response.displayedQuestion;
+					}
+				}	
+				
+			});
+		}());
+	</script>
+</dom-module>
