@@ -31,7 +31,7 @@ public class QuestionController {
 
     @CrossOrigin(origins = "http://localhost:8081")
     @GetMapping("/question")
-	public QuestionDTO getQuestion1() throws URISyntaxException {
+	public QuestionDTO getQuestion() throws URISyntaxException {
 		
 		String movieId = questionService.getRandomMovieId();
 		QuestionType qt = questionService.getRandomQuestionType();
