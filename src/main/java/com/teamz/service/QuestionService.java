@@ -9,9 +9,11 @@ import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import com.teamz.domain.Question;
 import com.teamz.domain.QuestionType;
 import com.teamz.repository.MovieRepository;
 import com.teamz.repository.QuestionTypeRepository;
+import com.teamz.repository.QuestionRepository;
 
 @Service
 public class QuestionService {
@@ -21,6 +23,9 @@ public class QuestionService {
 	
 	@Inject
 	QuestionTypeRepository qtRepo;
+	
+	@Inject
+	QuestionRepository questionRepo;
 	
 	public String generate(String movieId, QuestionType qt) {
 		
@@ -66,11 +71,13 @@ public class QuestionService {
 		return null;
 	}
 	
-	public void saveResponse(boolean correct ) {
+/*	public void saveResponse(Long Id, boolean correct) {
 		
-		//TODO: use repo to save response
+		Question question = questionRepo.findOneById(Id);
+		question.setCorrectlyAnswered(correct);
+		questionRepo.save(question);
 	}
-	
+*/	
 	//to generate random questions
 	public String getRandomMovieId() {
 		return movieRepo.getRandomMovie();

@@ -24,6 +24,9 @@ public class Quiz {
 	private List<Question> questions = new ArrayList<>();
 	
 	@Column
+	private Integer counter;
+	
+	@Column
 	private ZonedDateTime startedAt;
 	
 	@Column
@@ -43,6 +46,15 @@ public class Quiz {
 
 	public void setQuestions(List<Question> questions) {
 		this.questions = questions;
+		counter = questions.size();
+	}
+
+	public Integer getCounter() {
+		return counter;
+	}
+
+	public void setCounter(Integer counter) {
+		this.counter = counter;
 	}
 
 	public ZonedDateTime getStartedAt() {
@@ -59,6 +71,10 @@ public class Quiz {
 
 	public void setEndedAt(ZonedDateTime endedAt) {
 		this.endedAt = endedAt;
+	}
+
+	public void add(Question newQuestion) {
+		questions.add(newQuestion);
 	}
 	
 	
