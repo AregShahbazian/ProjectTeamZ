@@ -114,6 +114,7 @@
 				
 				setTokenHeader: function(){
 					this.$.getanswerOptionsAjax.headers['Authorization'] = 'Bearer ' + this.storedUser.token;
+					this.$.submitAnswerOption.headers['Authorization'] = 'Bearer ' + this.storedUser.token;
 				}	
 
 				
