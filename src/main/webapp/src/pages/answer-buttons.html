@@ -18,7 +18,8 @@
 
 		<iron-localstorage 
 			name="user-storage" 
-			value="{{storedUser}}"></iron-localstorage>
+			value="{{storedUser}}" 
+			on-iron-localstorage-load="setTokenHeader"></iron-localstorage>
 			
 		<app-data key="userData" data="{{storedUser}}"></app-data>
 
@@ -72,6 +73,10 @@
 						this.options = response.answerOptions;
 						this.dispayedQuestion = response.displayedQuestion;
 					}
+				},
+				
+				setTokenHeader: function(){
+					this.$.getanswerOptionsAjax.headers['Authorization'] = 'Bearer ' + this.storedUser.token;
 				}	
 				
 			});
