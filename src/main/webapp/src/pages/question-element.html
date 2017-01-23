@@ -15,7 +15,9 @@
 				display: block;
 			}
 		</style>
-
+		
+		<app-location route="{{route}}"></app-location>
+		
 		<iron-localstorage 
 			name="user-storage" 
 			value="{{storedUser}}" 
@@ -88,7 +90,7 @@
 					
 					if(status === 403){
 						// TODO: Handle unauthorized
-					}else{
+					} else {
 						// TODO: Handle response
 					  	var response = event.detail.response;
 						console.log(response);
@@ -107,17 +109,17 @@
 					this._setReqBody();
 					this.$.submitAnswerOption.generateRequest();
 					
-					
-					if (this.questionNumber <= 20) {
-						//new question
+					if (this.questionNumber <= 1) {
+						console.log("getting new question");
+						//this.$("#getanswerOptionsAjax");
 					} else {
-						//end quiz
+						this.set('route.path', '/results-page');
 					}
 				},
 				
 				_setReqBody: function() {
 					//curly braces indicate JSON format -> like a literal in JavaScript
-					this.$.submitAnswerOption.body = {quizId: 123, response: this.radioSelected, questionId: this.id};
+					this.$.submitAnswerOption.body = {quizId: this.storedQuiz.id, response: this.radioSelected, questionId: this.id};
 					
 				},
 				
