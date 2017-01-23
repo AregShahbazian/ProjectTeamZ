@@ -1,6 +1,7 @@
 package com.teamz.web.rest;
 
 import javax.inject.Inject;
+import javax.validation.Valid;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,7 @@ import com.teamz.service.OptionService;
 import com.teamz.service.QuestionService;
 import com.teamz.service.QuizService;
 import com.teamz.service.dto.QuestionDTO;
+import com.teamz.service.dto.ResponseDTO;
 
 @CrossOrigin
 @RestController
@@ -29,8 +31,8 @@ public class QuestionController {
 
 	@Inject
 	QuestionService questionService;
-	
-	@Inject 
+
+	@Inject
 	QuizService quizService;
 
 	@GetMapping("/question")
@@ -44,16 +46,17 @@ public class QuestionController {
 		totalQuestion.setAnswerOptions(optionService.generateOptions(movie.getApiId(), qt));
 
 		totalQuestion.setId(questionService.saveQuestion(qt, movie));
-		
+
 		quizService.addQuestionToList(totalQuestion.getId(), quizId);
-		
+
 		return totalQuestion;
 	}
 
 	@PutMapping("/question")
-	private void sendResponse(@RequestBody String response) {
-		// still need to see how polymer sends request body
-		System.out.println(response);
+	private void sendResponse(@Valid @RequestBody ResponseDTO responseDTO) {
+
+		optionService.checkResponse(responseDTO.getQuestionId(), responseDTO.getResponse());
+
 		// TODO: handle response with service
 	}
 
