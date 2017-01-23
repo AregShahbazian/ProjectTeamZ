@@ -37,12 +37,12 @@ public class QuizService {
 	public Integer addQuestionToList(Long questionId, Long quizId) {
 		// add a new question to the quiz
 
-		Quiz q = quizRepo.findOneById(quizId);
+		Quiz quiz = quizRepo.findOneById(quizId);
 		Question newQuestion = questionRepo.findOneById(questionId);
-		q.add(newQuestion);
-		q.setCounter(q.getCounter() + 1);
-		quizRepo.save(q);
-		return q.getCounter() + 1;
+		quiz.add(newQuestion);
+		quiz.setCounter(quiz.getCounter() + 1);
+		quizRepo.save(quiz);
+		return quiz.getQuestions().size();
 	}
 
 	public Quiz getQuizById(Long id) {
