@@ -27,7 +27,10 @@ public class MovieConfiguration {
 							"tt0110357", "tt0078748",
 							"tt0405094", "tt1853728",
 							"tt0169547", "tt0066921",
-							"tt1065073", "tt3783958"};
+							"tt1065073", "tt3783958",
+							"tt1392190", "tt3748528",
+							"tt0088763", "tt0469116",
+							"tt0338013", "tt0079470"};
 		
 		for (String movieId: movieIds) {
 			

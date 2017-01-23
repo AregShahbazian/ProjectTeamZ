@@ -14,6 +14,13 @@
 				--app-secondary-color: black;
 				display: block;
 			}
+			
+			paper-radio-button.black {
+    		--paper-radio-button-checked-color: #000000;
+    		--paper-radio-button-checked-ink-color: #000000;
+		    --paper-radio-button-unchecked-color: #000000;
+		    --paper-radio-button-unchecked-ink-color: #000000;
+		  }
 		</style>
 		
 		<app-location route="{{route}}"></app-location>
@@ -49,7 +56,7 @@
 			selected="{{radioSelected}}" 
 			allowEmptySelection=false>
 			<template is="dom-repeat" items="[[options]]" as="answer">
-				<paper-radio-button noink name="[[answer]]">[[answer]]</paper-radio-button><br><br>
+				<paper-radio-button class="black" noink name="[[answer]]">[[answer]]</paper-radio-button><br><br>
         	</template>
         </paper-radio-group>	
         
