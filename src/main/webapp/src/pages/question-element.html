@@ -34,7 +34,7 @@
 		
 		
 			<div>
-				<p><b>[[dispayedQuestion]]</b></p><br>
+				<p style="font-family:verdana;"><b>[[dispayedQuestion]]</b></p><br>
 			</div>
 		
 		
@@ -67,6 +67,8 @@
 					storedUser: Object,
 					options: Array,
 					dispayedQuestion: String,
+					//questionNumber: Number,
+					//id: Number,
 					radioSelected: String,
 					ajaxBody: {
         					type: String,
@@ -88,6 +90,8 @@
 						
 						this.options = response.answerOptions;
 						this.dispayedQuestion = response.displayedQuestion;
+						this.questionNumber = response.questionNumber;
+						this.id = response.id;
 					}
 				},
 				
@@ -95,11 +99,16 @@
 				//start submit functions
 
 				submitAnswer: function() {
-					console.log(this.radioSelected);
 					this._setReqBody();
 					this.$.submitAnswerOption.generateRequest();
-						
-					},
+					
+					
+					if (this.questionNumber <= 20) {
+						//new question
+					} else {
+						//end quiz
+					}
+				},
 				
 				_setReqBody: function() {
 					//curly braces indicate JSON format -> like a literal in JavaScript

@@ -46,9 +46,8 @@ public class QuestionController {
 	@PutMapping("/question")
 	private void sendResponse(@RequestBody ResponseDTO responseDTO){
 		
-		optionService.checkResponse(responseDTO.getResponse());
+		optionService.checkResponse(responseDTO.getQuizId(), responseDTO.getResponse());
 		
-		// TODO: handle response with service
 	}
 
 }

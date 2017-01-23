@@ -79,6 +79,7 @@ public class OptionService {
 			//check the response
 			question.setCorrectlyAnswered(givenAnswer.equals(apiJson.get(question.getqType().getqType()).toString()));
 			questionRepo.save(question);
+			
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
