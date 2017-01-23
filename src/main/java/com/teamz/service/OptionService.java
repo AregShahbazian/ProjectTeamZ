@@ -12,11 +12,15 @@ import java.util.Arrays;
 import java.util.Random;
 
 import com.teamz.domain.QuestionType;
+import com.teamz.domain.Question;
+import com.teamz.repository.QuestionRepository;
+
 
 @Service
 public class OptionService {
 	
 	@Inject QuestionService questionService;
+	@Inject QuestionRepository questionRepo;
 	
 	private int numOptions = 4;
 	
@@ -62,13 +66,22 @@ public class OptionService {
 		return answerOptions;
 	}
 	
-	public void checkResponse(String givenAnswer) {
+	public void checkResponse(long questionId, String givenAnswer) {
 		
-		//TODO:
-		//check the response
-		//call save function to save response to DB
+		//call for right answer
+		RestTemplate restTemplate = new RestTemplate();
+		String movie = restTemplate.getForObject("http://www.omdbapi.com/?i=" + Long.toString(questionId) + "&plot=short&r=json", String.class);
 		
+		JSONObject apiJson;
+		try {
+			apiJson = new JSONObject(movie);
+			Question question = questionRepo.findOneById(questionId);
+			//check the response
+			question.setCorrectlyAnswered(givenAnswer.equals(apiJson.get(question.getqType().getqType()).toString()));
+			questionRepo.save(question);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 	}
-	
 	
 }
