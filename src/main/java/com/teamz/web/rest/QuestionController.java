@@ -1,7 +1,5 @@
 package com.teamz.web.rest;
 
-import java.net.URISyntaxException;
-
 import javax.inject.Inject;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -31,7 +29,7 @@ public class QuestionController {
 	QuestionService questionService;	
 
     @GetMapping("/question")
-	public QuestionDTO getQuestion() throws URISyntaxException {
+	public QuestionDTO getQuestion(){
 		
 		String movieId = questionService.getRandomMovieId();
 		QuestionType qt = questionService.getRandomQuestionType();
