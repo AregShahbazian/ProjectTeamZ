@@ -47,7 +47,8 @@ public class QuestionController {
 
 		totalQuestion.setId(questionService.saveQuestion(qt, movie));
 
-		quizService.addQuestionToList(totalQuestion.getId(), quizId);
+		Integer questionNumber = quizService.addQuestionToList(totalQuestion.getId(), quizId);
+		totalQuestion.setQuestionNumber(questionNumber);
 
 		return totalQuestion;
 	}

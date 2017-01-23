@@ -34,14 +34,14 @@ public class QuizService {
 
 	}
 
-	public void addQuestionToList(Long questionId, Long quizId) {
+	public Integer addQuestionToList(Long questionId, Long quizId) {
 		// add a new question to the quiz
 
 		Quiz q = quizRepo.findOneById(quizId);
 		Question newQuestion = questionRepo.findOneById(questionId);
 		q.add(newQuestion);
 		quizRepo.save(q);
+		return q.getCounter() + 1;
 	}
-	
-	
+
 }
