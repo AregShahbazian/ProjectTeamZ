@@ -102,7 +102,7 @@
 					},
 				
 				_setReqBody: function() {
-					this.$.submitAnswerOption.body = {quizId: "123", answer: this.radioSelected};
+					this.$.submitAnswerOption.body = {quizId: "123", response: this.radioSelected};
 					
 				},
 				
@@ -114,6 +114,7 @@
 				
 				setTokenHeader: function(){
 					this.$.getanswerOptionsAjax.headers['Authorization'] = 'Bearer ' + this.storedUser.token;
+					this.$.submitAnswerOption.headers['Authorization'] = 'Bearer ' + this.storedUser.token;
 				}	
 
 				
