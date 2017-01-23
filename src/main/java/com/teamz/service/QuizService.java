@@ -40,8 +40,13 @@ public class QuizService {
 		Quiz q = quizRepo.findOneById(quizId);
 		Question newQuestion = questionRepo.findOneById(questionId);
 		q.add(newQuestion);
+		q.setCounter(q.getCounter() + 1);
 		quizRepo.save(q);
 		return q.getCounter() + 1;
+	}
+
+	public Quiz getQuizById(Long id) {
+		return quizRepo.findOneById(id);
 	}
 
 }
