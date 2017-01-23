@@ -35,7 +35,11 @@
 			handle-as="json"
 			on-response="handleQuizResponse"></iron-ajax>
 
-	<p>In results</p>
+		<div style="margin: 0 20%;">
+			<h3>[[bar]]</h3><br>
+			<p style="float:right;">[[foo]]</p><br><br>
+		</div>
+
 	</template>
 
 	<script>
@@ -51,7 +55,33 @@
 				handleQuizResponse: function(event, request) {
 					var response = event.detail.response;
 					var status = request.xhr.status;
-					console.log(response);
+
+					var questions = response.questions;
+
+					var nCorrect=0;
+					var i;
+					for(i=0; i<questions.length;i++){
+						if(questions[i].correctlyAnswered){
+							nCorrect ++;
+						}
+					}
+					
+					var ratio = nCorrect / questions.length;
+
+					this.bar = "Your score: " + nCorrect + " out of the " + questions.length + " questions correct.";
+					this.foo = "";
+					
+					if (ratio > 0.8) {
+						this.foo += "Congratulations, you got more than 80% right! You must have no life hahahahaha !!";
+					} else if (ratio > 0.6) {
+						this.foo += "Not bad, more than 60% right ..";
+					} else if (ratio > 0.5) {
+						this.foo += "Just above 50% .. is that your life goal? Being just good enough?";
+					} else {
+						this.foo += "Booooo, you didn't even try.... we worked so hard on making his app.. and you didn't even bother Googling the answers..";
+					}
+
+
 				},			
 				
 			});
