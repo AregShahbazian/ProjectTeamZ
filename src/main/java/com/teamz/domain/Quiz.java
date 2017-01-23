@@ -1,7 +1,7 @@
 package com.teamz.domain;
 
-import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -14,23 +14,24 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class Quiz {
-	//contains data about one quiz session 
-	
+	// contains data about one quiz session
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-	
-	@OneToMany(fetch = FetchType.EAGER) //automatically queries the questions with the Quiz
+
+	@OneToMany(fetch = FetchType.EAGER) // automatically queries the questions
+										// with the Quiz
 	private List<Question> questions = new ArrayList<>();
-	
+
 	@Column
 	private Integer counter;
-	
+
 	@Column
-	private ZonedDateTime startedAt;
-	
+	private Date startedAt;
+
 	@Column
-	private ZonedDateTime endedAt;
+	private Date endedAt;
 
 	public long getId() {
 		return id;
@@ -57,26 +58,24 @@ public class Quiz {
 		this.counter = counter;
 	}
 
-	public ZonedDateTime getStartedAt() {
-		return startedAt;
-	}
-
-	public void setStartedAt(ZonedDateTime startedAt) {
-		this.startedAt = startedAt;
-	}
-
-	public ZonedDateTime getEndedAt() {
-		return endedAt;
-	}
-
-	public void setEndedAt(ZonedDateTime endedAt) {
-		this.endedAt = endedAt;
-	}
-
 	public void add(Question newQuestion) {
 		questions.add(newQuestion);
 	}
-	
-	
-	
+
+	public Date getStartedAt() {
+		return startedAt;
+	}
+
+	public void setStartedAt(Date startedAt) {
+		this.startedAt = startedAt;
+	}
+
+	public Date getEndedAt() {
+		return endedAt;
+	}
+
+	public void setEndedAt(Date endedAt) {
+		this.endedAt = endedAt;
+	}
+
 }
