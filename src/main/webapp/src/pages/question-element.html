@@ -72,8 +72,8 @@
 					storedUser: Object,
 					options: Array,
 					dispayedQuestion: String,
-					//questionNumber: Number,
-					//id: Number,
+					questionNumber: Number,
+					id: Number,
 					radioSelected: String,
 					ajaxBody: {
         					type: String,
@@ -117,7 +117,7 @@
 				
 				_setReqBody: function() {
 					//curly braces indicate JSON format -> like a literal in JavaScript
-					this.$.submitAnswerOption.body = {quizId: 123, response: this.radioSelected};
+					this.$.submitAnswerOption.body = {quizId: 123, response: this.radioSelected, questionId: this.id};
 					
 				},
 				
