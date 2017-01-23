@@ -3,6 +3,8 @@ package com.teamz.web.rest;
 import javax.inject.Inject;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,6 +28,13 @@ public class QuizController {
 		quizDTO.setStartedAt(quiz.getStartedAt());
 		quizDTO.setEndedAt(quiz.getEndedAt());
 		return quizDTO;
+	}
+
+	@GetMapping("/quiz/{id}")
+	public Quiz getQuiz(@PathVariable Long id) {
+		Quiz quiz = quizService.getQuizById(id);
+
+		return quiz;
 	}
 
 }

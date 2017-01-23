@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Question {
 	//contains individual shown questions within a quiz
@@ -18,11 +20,13 @@ public class Question {
 	private long id;
 	
 	@NotNull
+	@JsonIgnore
 	@ManyToOne //if one object contains another, you cannot specify it as column. 
 	//To map objects to each other, use cardinality annotations.
 	private QuestionType qType; 
 	
 	@NotNull
+	@JsonIgnore
 	@ManyToOne
 	private Movie qMovie;
 	
