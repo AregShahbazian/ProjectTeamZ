@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.teamz.domain.Quiz;
 import com.teamz.service.QuizService;
+import com.teamz.service.dto.QuizDTO;
 
 @CrossOrigin
 @RestController
@@ -17,9 +18,14 @@ public class QuizController {
 	QuizService quizService;
 
 	@PostMapping("/quiz")
-	public Quiz startQuiz() {
-		return quizService.insertQuiz();
+	public QuizDTO startQuiz() {
+		Quiz quiz = quizService.insertQuiz();
+
+		QuizDTO quizDTO = new QuizDTO();
+		quizDTO.setId(quiz.getId());
+		quizDTO.setStartedAt(quiz.getStartedAt());
+		quizDTO.setEndedAt(quiz.getEndedAt());
+		return quizDTO;
 	}
 
-	
 }

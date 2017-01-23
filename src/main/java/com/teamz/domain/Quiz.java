@@ -23,11 +23,11 @@ public class Quiz {
 	private long id;
 
 	@OneToMany(fetch = FetchType.EAGER) // automatically queries the questions
-										// with the Quiz
 	@JsonIgnore
 	private List<Question> questions = new ArrayList<>();
 
 	@Column
+	@JsonIgnore
 	private Integer counter;
 
 	@Column
