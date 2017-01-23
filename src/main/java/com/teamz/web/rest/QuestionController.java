@@ -13,6 +13,7 @@ import com.teamz.repository.QuizRepository;
 import com.teamz.service.OptionService;
 import com.teamz.service.QuestionService;
 import com.teamz.service.dto.QuestionDTO;
+import com.teamz.service.dto.ResponseDTO;
 
 @CrossOrigin
 @RestController
@@ -43,9 +44,10 @@ public class QuestionController {
 	
 
 	@PutMapping("/question")
-	private void sendResponse(@RequestBody String response){
-		//still need to see how polymer sends request body 
-		System.out.println(response);
+	private void sendResponse(@RequestBody ResponseDTO responseDTO){
+		
+		optionService.checkResponse(responseDTO.getResponse());
+		
 		// TODO: handle response with service
 	}
 
