@@ -70,7 +70,8 @@ public class OptionService {
 		
 		//call for right answer
 		RestTemplate restTemplate = new RestTemplate();
-		String movie = restTemplate.getForObject("http://www.omdbapi.com/?i=" + Long.toString(questionId) + "&plot=short&r=json", String.class);
+		String apiMovieId = questionRepo.findOneById(questionId).getqMovie().getApiId();
+		String movie = restTemplate.getForObject("http://www.omdbapi.com/?i=" + apiMovieId + "&plot=short&r=json", String.class);
 		
 		JSONObject apiJson;
 		try {
