@@ -1,7 +1,6 @@
 package com.teamz.config;
 
 import java.time.ZonedDateTime;
-import java.util.Arrays;
 import java.util.HashSet;
 
 import javax.inject.Inject;
@@ -21,9 +20,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.data.repository.query.SecurityEvaluationContextExtension;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.teamz.domain.Authority;
 import com.teamz.domain.User;

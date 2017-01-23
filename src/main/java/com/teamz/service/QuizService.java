@@ -42,4 +42,6 @@ public class QuizService {
 		q.add(newQuestion);
 		quizRepo.save(q);
 	}
+	
+	
 }

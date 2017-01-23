@@ -21,12 +21,17 @@
 			value="{{storedUser}}" 
 			on-iron-localstorage-load="setTokenHeader"></iron-localstorage>
 			
+		<iron-localstorage 
+			name="quiz-storage" 
+			value="{{storedQuiz}}"></iron-localstorage>
+
 		<app-data key="userData" data="{{storedUser}}"></app-data>
+		<app-data key="quizData" data="{{storedQuiz}}"></app-data>
 
 		<iron-ajax
 			auto
 			id="getanswerOptionsAjax"
-			url="http://localhost:8080/question"
+			url="http://localhost:8080/question?quizId={{storedQuiz.id}}"
 			method="get"
 			content-type="application/json"
 			handle-as="json"

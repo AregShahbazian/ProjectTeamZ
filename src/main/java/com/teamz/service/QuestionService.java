@@ -3,17 +3,16 @@ package com.teamz.service;
 import javax.inject.Inject;
 
 import org.json.JSONException;
-
-
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import com.teamz.domain.Movie;
 import com.teamz.domain.Question;
 import com.teamz.domain.QuestionType;
 import com.teamz.repository.MovieRepository;
-import com.teamz.repository.QuestionTypeRepository;
 import com.teamz.repository.QuestionRepository;
+import com.teamz.repository.QuestionTypeRepository;
 
 @Service
 public class QuestionService {
@@ -79,7 +78,7 @@ public class QuestionService {
 	}
 */	
 	//to generate random questions
-	public String getRandomMovieId() {
+	public Movie getRandomMovieId() {
 		return movieRepo.getRandomMovie();
 	}
 	
@@ -112,4 +111,14 @@ public class QuestionService {
 		return display;
 		
 	}
+	
+	public Long saveQuestion(QuestionType questionType, Movie movie){
+		Question question = new Question();
+		question.setqMovie(movie);
+		question.setqType(questionType);
+		
+		return questionRepo.save(question).getId();
+		
+	}
+	
 }

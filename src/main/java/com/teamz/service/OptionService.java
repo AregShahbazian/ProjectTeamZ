@@ -45,7 +45,7 @@ public class OptionService {
 		for (int i = 0; i < numOptions; i++){
 			if (i != posCorrectAnswer) {
 				//get another answer possibility
-				movie = restTemplate.getForObject("http://www.omdbapi.com/?i=" + questionService.getRandomMovieId() + "&plot=short&r=json", String.class);
+				movie = restTemplate.getForObject("http://www.omdbapi.com/?i=" + questionService.getRandomMovieId().getApiId() + "&plot=short&r=json", String.class);
 				
 				try {
 					apiJson = new JSONObject(movie);
