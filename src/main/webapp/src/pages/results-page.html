@@ -19,7 +19,22 @@
 			name="user-storage" 
 			value="{{storedUser}}"></iron-localstorage>
 
+		<iron-localstorage 
+			name="quiz-storage" 
+			value="{{storedQuiz}}"></iron-localstorage>
+
 		<app-data key="userData" data="{{storedUser}}"></app-data>
+		<app-data key="quizData" data="{{storedQuiz}}"></app-data>
+
+		<iron-ajax
+			auto
+			id="getQuiz"
+			url="http://localhost:8080/quiz/{{storedQuiz.id}}"
+			method="get"
+			content-type="application/json"
+			handle-as="json"
+			on-response="handleQuizResponse"></iron-ajax>
+
 
 	</template>
 
@@ -29,9 +44,17 @@
 				is: 'results-page',
 				
 				properties: {
-					storedUser: Object
-				}
+					storedUser: Object,
+					storedQuiz: Object
+				},
 				
+				handleQuizResponse: function(event, request) {
+					var response = event.detail.response;
+					var status = request.xhr.status;
+					console.log(response);
+				},			
+				
+			});
 		}());
 	</script>
 </dom-module>
