@@ -6,7 +6,7 @@
 
 <link rel="import" href="../common/app-data.html">
 
-<dom-module id="answer-buttons">
+<dom-module id="question-element">
 	<template>
 		<style>
 			:host {
@@ -33,30 +33,46 @@
 		
 		
 			<div>
-				[[dispayedQuestion]]<br>
+				<p><b>[[dispayedQuestion]]</b></p><br>
 			</div>
 		
 		
-		<paper-radio-group>
+		<paper-radio-group id="answer-options-group" selected="{{radioSelected}}">
 			<template is="dom-repeat" items="[[options]]" as="answer">
 				<paper-radio-button noink name="[[answer]]">[[answer]]</paper-radio-button><br><br>
         	</template>
         </paper-radio-group>	
         
-
+        <!-- start submit button -->
+		<iron-ajax
+			id="submitAnswerOption"
+			url="http://localhost:8080/question"
+			body={{ajaxBody}}
+			method="put"
+			content-type="application/json"
+			handle-as="json"
+			on-response="handleAnswer"></iron-ajax>
+		
+		<paper-button raised on-tap="submitAnswer">submit</paper-button>
 		
 	</template>
 
 	<script>
 		(function() {
 			Polymer({
-				is: 'answer-buttons',
+				is: 'question-element',
 				
 				properties: {
 					storedUser: Object,
 					options: Array,
-					dispayedQuestion: String
-				},
+					dispayedQuestion: String,
+					radioSelected: String,
+					ajaxBody: {
+        					type: String,
+        					computed: '_setReqBody()'
+   							}
+					
+					},
 				
 				handleanswerOptionsResponse: function(event, request) {
 					var response = event.detail.response;
@@ -72,9 +88,32 @@
 						this.options = response.answerOptions;
 						this.dispayedQuestion = response.displayedQuestion;
 					}
-				}	
+				},
+				
+				
+				//start submit functions
+
+				submitAnswer: function() {
+					console.log(this.radioSelected);
+					this._setReqBody();
+					this.$.submitAnswerOption.generateRequest();
+						
+					},
+				
+				_setReqBody: function() {
+					this.$.submitAnswerOption.body = {quizId: "123", answer: this.radioSelected};
+					
+				},
+				
+				handleAnswer: function(event, request) {
+					var response = event.detail.response;
+					var status = request.xhr.status;
+					console.log(response);
+				}
+				
 				
 			});
+			
 		}());
 	</script>
 </dom-module>
