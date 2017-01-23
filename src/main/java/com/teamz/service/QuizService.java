@@ -28,6 +28,7 @@ public class QuizService {
 
 		Quiz q = new Quiz();
 		q.setStartedAt(new Date());
+		q.setCounter(0);
 
 		return quizRepo.save(q);
 

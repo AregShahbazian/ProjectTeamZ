@@ -12,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Quiz {
 	// contains data about one quiz session
@@ -22,6 +24,7 @@ public class Quiz {
 
 	@OneToMany(fetch = FetchType.EAGER) // automatically queries the questions
 										// with the Quiz
+	@JsonIgnore
 	private List<Question> questions = new ArrayList<>();
 
 	@Column

@@ -33,15 +33,29 @@
 		<iron-localstorage 
 			name="user-storage" 
 			value="{{storedUser}}"></iron-localstorage>
+			
+		<iron-localstorage 
+			name="quiz-storage" 
+			value="{{storedQuiz}}"></iron-localstorage>
 	
 		<app-data key="userData" data="{{storedUser}}"></app-data>
-
+		<app-data key="quizData" data="{{storedQuiz}}"></app-data>
+		
+		<iron-ajax
+			id="startQuiz"
+			url="http://localhost:8080/quiz"
+			method="post"
+			content-type="application/json"
+			handle-as="json"
+			on-response="startQuiz"></iron-ajax>
+			
+			
 		<div id="container">
 			<h1 class="centered"><b> Movie master </b></h1>
 			<p class="centered"> Hello [[storedUser.name]]! Click on the start button to start the movie quiz! </p>
 		    
 			<div id="startbutton">
-				<paper-button on-tap="startQuiz" raised>START</paper-button>
+				<paper-button on-tap="initiateQuiz" raised>START</paper-button>
 			</div>
 		</div>
 	</template>
@@ -52,12 +66,22 @@
 				is: 'home-page',
 				
 				properties: {
-					storedUser: Object
+					storedUser: Object,
+					storedQuiz: Object
 				},
 				
-				startQuiz: function() {
-					console.log("Starting Quiz");
+				initiateQuiz: function() {
+					console.log("Initiating Quiz");
+					this.$.startQuiz.generateRequest();
+				},
+				
+				startQuiz: function(event, request){
+					var response = event.detail.response;
+					var status = request.xhr.status;
+					console.log(response);
+					this.storedQuiz = response;
 					this.set('route.path', '/quiz-page');
+					
 				}
 
 			});
