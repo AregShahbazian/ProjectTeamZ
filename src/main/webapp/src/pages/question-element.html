@@ -45,7 +45,9 @@
 			</div>
 		
 		
-		<paper-radio-group id="answer-options-group" selected="{{radioSelected}}">
+		<paper-radio-group id="answer-options-group" 
+			selected="{{radioSelected}}" 
+			allowEmptySelection=false>
 			<template is="dom-repeat" items="[[options]]" as="answer">
 				<paper-radio-button noink name="[[answer]]">[[answer]]</paper-radio-button><br><br>
         	</template>
@@ -106,14 +108,26 @@
 				//start submit functions
 
 				submitAnswer: function() {
-					this._setReqBody();
-					this.$.submitAnswerOption.generateRequest();
 					
-					if (this.questionNumber <= 1) {
-						console.log("getting new question");
-						//this.$("#getanswerOptionsAjax");
-					} else {
-						this.set('route.path', '/results-page');
+					if (this.radioSelected != null) {
+					
+						this._setReqBody();
+						this.$.submitAnswerOption.generateRequest();
+						
+						//clear answer
+						this.radioSelected = null;
+	
+						
+						if (this.questionNumber <= 20) {
+							console.log("getting new question");
+							
+							this.$.getanswerOptionsAjax.generateRequest();
+							
+						} else {
+							this.set('route.path', '/results-page');
+						}
+					} else { 
+						window.alert("Please select an answer.");
 					}
 				},
 				
