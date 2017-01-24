@@ -13,10 +13,10 @@
 				--app-secondary-color: black;
 				display: block;
 			}
-			
+
 			#home-container{
 				margin:0 20%;
-				border: dashed black 1px;
+				border: solid black 1px;
 			}
 			
 			.centered{
@@ -53,7 +53,7 @@
 			
 		<div id="home-container">
 			<h1 class="centered"><b> Movie master </b></h1>
-			<p class="centered"> Hello [[storedUser.name]]! Click on the start button to start the movie quiz! </p>
+			<p class="centered"> Hello, <i>[[storedUser.name]]</i>! Click on the start button to start the movie quiz! </p>
 		    
 			<div id="startbutton">
 				<paper-button on-tap="initiateQuiz" raised>START</paper-button>
