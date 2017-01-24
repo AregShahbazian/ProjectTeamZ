@@ -58,8 +58,6 @@ public class QuestionController {
 
 		optionService.checkResponse(responseDTO.getQuestionId(), responseDTO.getResponse());
 
-		// TODO: handle response with service
-
 	}
 
 }
