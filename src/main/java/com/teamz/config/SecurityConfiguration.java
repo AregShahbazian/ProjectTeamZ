@@ -92,6 +92,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         .and()
         	.authorizeRequests()
     		.antMatchers("/question").hasAuthority(AuthoritiesConstants.ADMIN)
+    		.antMatchers("/quiz/**").hasAuthority(AuthoritiesConstants.ADMIN)
         	.antMatchers("/**").permitAll()
     	.and()
             .apply(securityConfigurerAdapter());

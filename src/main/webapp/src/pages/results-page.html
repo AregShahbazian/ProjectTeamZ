@@ -13,11 +13,25 @@
 				--app-secondary-color: black;
 				display: block;
 			}
+			
+			#goback {
+				float: right;
+			}
+			
+			#results-container {
+				margin: 0 20%; 	
+				padding-top: 3em;
+				border-top: solid black 5px;			
+			}
+			
 		</style>
+
+		<app-location route="{{route}}"></app-location>
 
 		<iron-localstorage 
 			name="user-storage" 
-			value="{{storedUser}}"></iron-localstorage>
+			value="{{storedUser}}"
+			on-iron-localstorage-load="setTokenHeader"></iron-localstorage>
 
 		<iron-localstorage 
 			name="quiz-storage" 
@@ -35,11 +49,16 @@
 			handle-as="json"
 			on-response="handleQuizResponse"></iron-ajax>
 
-		<div style="margin: 0 20%;">
+		<div id="results-container">
 			<h3>[[bar]]</h3><br>
 			<p style="float:right;">[[foo]]</p><br><br>
+			<div>&nbsp;</div>
+			<div id="goback">
+				<paper-button on-tap="backToHome" raised>BACK TO HOMEPAGE</paper-button>
+			</div>
 		</div>
-
+		
+		
 	</template>
 
 	<script>
@@ -84,6 +103,15 @@
 					this.ratio = ratio;
 
 				},			
+				
+				backToHome: function(){
+					this.set('route.path', '/home-page');
+				},
+				
+				setTokenHeader: function(){
+					this.$.getQuiz.headers['Authorization'] = 'Bearer ' + this.storedUser.token;
+				}	
+
 				
 			});
 		}());
