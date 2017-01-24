@@ -14,9 +14,9 @@
 				display: block;
 			}
 			
-			#container{
+			#home-container{
 				margin:0 20%;
-				border: solid black 1px;
+				border: dashed black 1px;
 			}
 			
 			.centered{
@@ -32,7 +32,8 @@
 
 		<iron-localstorage 
 			name="user-storage" 
-			value="{{storedUser}}"></iron-localstorage>
+			value="{{storedUser}}"
+			on-iron-localstorage-load="setTokenHeader"></iron-localstorage>
 			
 		<iron-localstorage 
 			name="quiz-storage" 
@@ -50,7 +51,7 @@
 			on-response="startQuiz"></iron-ajax>
 			
 			
-		<div id="container">
+		<div id="home-container">
 			<h1 class="centered"><b> Movie master </b></h1>
 			<p class="centered"> Hello [[storedUser.name]]! Click on the start button to start the movie quiz! </p>
 		    
@@ -82,7 +83,11 @@
 					this.storedQuiz = response;
 					this.set('route.path', '/quiz-page');
 					
-				}
+				},
+				
+				setTokenHeader: function(){
+					this.$.startQuiz.headers['Authorization'] = 'Bearer ' + this.storedUser.token;
+				}	
 
 			});
 		}());
