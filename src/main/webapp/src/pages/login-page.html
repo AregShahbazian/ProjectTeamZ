@@ -32,6 +32,12 @@
 				font-size: 14px;
 				padding: 10px;
 			}
+			#login-container {
+				margin: 0 30%; 	
+				//width: 30em;
+				padding-top: 3em;
+				border-top: solid black 5px;			
+			}
 		</style>
 
 		<app-location route="{{route}}"></app-location>
@@ -48,31 +54,28 @@
 			on-response="handleUserResponse"
 			on-error="handleUserError"></iron-ajax>
 
-		<div class="card">
-			<div>
-				<h1>Log In</h1>
+		<div id="login-container">
+			<h1>Log In</h1>
 
-				<p><strong>Log in</strong> to access the Movie Master quiz!</p>
+			<p><strong>Log in</strong> to access the Movie Master quiz!</p>
 
-				<template is="dom-if" if="[[error]]">
-					<p class="alert-error"><strong>Error:</strong> [[error]]</p>
-				</template>
-				
-				<paper-input-container>
-					<label>Username</label>
-					<input is="iron-input" id="username" type="text" bind-value="{{formData.username}}">
-				</paper-input-container>
+			<template is="dom-if" if="[[error]]">
+				<p class="alert-error"><strong>Error:</strong> [[error]]</p>
+			</template>
+			
+			<paper-input-container>
+				<label>Username</label>
+				<input is="iron-input" id="username" type="text" bind-value="{{formData.username}}">
+			</paper-input-container>
 
-				<paper-input-container>
-					<label>Password</label>
-					<input is="iron-input" id="password" type="password" bind-value="{{formData.password}}">
-				</paper-input-container>
+			<paper-input-container>
+				<label>Password</label>
+				<input is="iron-input" id="password" type="password" bind-value="{{formData.password}}">
+			</paper-input-container>
 
-				<div class="wrapper-btns">
-					<paper-button raised on-tap="postLogin">Log In</paper-button>
-				</div>
-			</div>	
-
+			<div class="wrapper-btns">
+				<paper-button raised on-tap="postLogin">Log In</paper-button>
+			</div>
 		</div>
 	</template>
 
