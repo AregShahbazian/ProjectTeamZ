@@ -47,7 +47,7 @@
 			on-response="handleanswerOptionsResponse"></iron-ajax>
 		
 		
-		<h2 style="float:right">Question [[questionNumber]] of 10.</h2>
+		<h2 style="float:right">Question [[questionNumber]] of 7.</h2>
 		
 		<div>
 			<p style="font-family:verdana;"><b>[[dispayedQuestion]]</b></p><br>
@@ -127,7 +127,7 @@
 						this.radioSelected = null;
 	
 						
-						if (this.questionNumber < 10) {
+						if (this.questionNumber < 7) {
 							console.log("getting new question");
 							
 							this.$.getanswerOptionsAjax.generateRequest();
