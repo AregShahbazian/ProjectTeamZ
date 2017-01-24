@@ -15,10 +15,11 @@ public class QuestionTypeConfiguration {
 	
 	@Inject
 	public void buildQuestionTypeRepo(){
-		String[] questionTypes = {"Year" , "Director", "Actors"};
+		String[] questionTypes = {"Year" , "Director", "Actors", "Genre"};
 		String[] questionTemplates = {"In which year was the movie #MovieNameZ released?", 
 										"Who directed #MovieNameZ?",
-										"Which actors played in #MovieNameZ?"};
+										"Which actors played in #MovieNameZ?",
+										"Which genre is the movie #MovieNameZ?"};
 		if (questionTypes.length == questionTemplates.length){
 			//build the database of question types
 			for (int i = 0; i < questionTypes.length; i++){
